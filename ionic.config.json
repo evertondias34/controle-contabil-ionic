@@ -1,0 +1,7 @@
+{
+  "name": "controle-contabil",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
