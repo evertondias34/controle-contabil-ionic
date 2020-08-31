@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Clientes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="adicionarCliente()"
+        >Novo
+        <!-- [disabled]="this.sessionService.isEditor()" -->
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar
+    placeholder="Filtrar por nome ou estado"
+    (ionChange)="filtroEvent($event)"
+  >
+  </ion-searchbar>
+
+  <ion-grid>
+    <ion-row class="linha-zebrada" *ngFor="let cliente of filteredCliente">
+      <ion-col size-sm="5" size="12"> {{cliente.nome}} </ion-col>
+      <ion-col size-sm="5" size="12"> {{cliente.estadoCurrent}} </ion-col>
+      <ion-col size-sm="2" size="12">
+        <ion-button color="light" (click)="editar(cliente)">
+          <!-- [disabled]="this.sessionService.isEditor()" -->
+          <ion-icon name="pencil"></ion-icon>
+        </ion-button>
+        <ion-button color="light" (click)="deletar(cliente)">
+          <!-- [disabled]="this.sessionService.isEditor()" -->
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

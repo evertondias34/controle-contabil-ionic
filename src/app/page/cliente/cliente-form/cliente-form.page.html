@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Cadastro de cliente</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="submitForm()"
+        color="primary"
+        [disabled]="!clienteGroup.valid"
+      >
+        Salvar</ion-button
+      >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="clienteGroup">
+    <div class="styleIcone">
+      <i class="fa fa-user" slot="start" aria-hidden="true"></i>
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input type="text" formControlName="nome"></ion-input>
+      </ion-item>
+    </div>
+    <div *ngIf="clienteGroup.controls.nome.errors">
+      <p class="labelError" *ngIf="clienteGroup.controls.nome.errors.required">
+        Campo obrigatório!
+      </p>
+    </div>
+
+    <div class="styleIcone">
+      <i class="fa fa-whatsapp" aria-hidden="true"></i>
+      <ion-item>
+        <ion-label position="floating">Telefone</ion-label>
+        <ion-input type="tel" formControlName="telefone"></ion-input>
+      </ion-item>
+    </div>
+    <div *ngIf="clienteGroup.controls.telefone.errors">
+      <p
+        class="labelError"
+        *ngIf="clienteGroup.controls.telefone.errors.required"
+      >
+        Campo obrigatório!
+      </p>
+      <p
+        class="labelError"
+        *ngIf="clienteGroup.controls.telefone.errors.pattern"
+      >
+        Formato inválido!
+      </p>
+    </div>
+
+    <!-- <ion-item>
+      <ion-label position="floating">Estado</ion-label>
+      <ion-input
+        formControlName="estadoAtual"
+        readonly
+        type="text"
+        (click)="selectEstado()"
+        [value]="estadoSelected"
+      ></ion-input> -->
+    <!-- <ion-select formControlName="estadoAtual">
+        <ion-select-option
+          *ngFor="let estadoCurrent of this.estados"
+          [value]="estadoCurrent"
+        >
+          {{estadoCurrent}}
+        </ion-select-option>
+      </ion-select> -->
+    <!-- </ion-item>
+    <div *ngIf="clienteGroup.controls.estadoAtual.errors">
+      <p
+        class="labelError"
+        *ngIf="clienteGroup.controls.estadoAtual.errors.required"
+      >
+        Campo obrigatório!
+      </p>
+    </div> -->
+  </form>
+</ion-content>

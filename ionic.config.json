@@ -1,7 +1,8 @@
 {
   "name": "controle-contabil",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
