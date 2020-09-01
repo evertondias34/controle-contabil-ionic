@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Cliente } from "../models/cliente";
+import { Cliente } from "../../models/cliente";
 
 import { Plugins, Capacitor, FilesystemDirectory } from "@capacitor/core";
 import { promisify } from "util";

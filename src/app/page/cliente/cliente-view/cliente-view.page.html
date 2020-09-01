@@ -23,7 +23,7 @@
   <ion-grid>
     <ion-row class="linha-zebrada" *ngFor="let cliente of filteredCliente">
       <ion-col size-sm="5" size="12"> {{cliente.nome}} </ion-col>
-      <ion-col size-sm="5" size="12"> {{cliente.estadoCurrent}} </ion-col>
+      <ion-col size-sm="5" size="12"> {{cliente.telefone}} </ion-col>
       <ion-col size-sm="2" size="12">
         <ion-button color="light" (click)="editar(cliente)">
           <!-- [disabled]="this.sessionService.isEditor()" -->

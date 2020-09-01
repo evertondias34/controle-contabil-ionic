@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Cliente } from "src/app/models/cliente";
 import { Router, NavigationExtras } from "@angular/router";
-import { ClienteService } from "src/app/service/cliente.service";
+import { ClienteService } from "src/app/service/cliente/cliente.service";
 
 @Component({
   selector: "app-cliente-view",

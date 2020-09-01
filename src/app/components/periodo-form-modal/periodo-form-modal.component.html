@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro de período</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="periodoGroup">
+    <div class="styleIcone">
+      <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+      <ion-item>
+        <ion-label position="floating">Período</ion-label>
+        <ion-input
+          type="text"
+          formControlName="nomePeriodo"
+          placeholder="mesXXXX"
+        ></ion-input>
+      </ion-item>
+    </div>
+    <div *ngIf="periodoGroup.controls.nomePeriodo.errors">
+      <p
+        class="labelError"
+        *ngIf="periodoGroup.controls.nomePeriodo.errors.required"
+      >
+        Campo obrigatório!
+      </p>
+      <p
+        class="labelError"
+        *ngIf="periodoGroup.controls.nomePeriodo.errors.pattern"
+      >
+        Formato inválido!
+      </p>
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <ion-button (click)="cancelar()"> Cancelar </ion-button>
+    </ion-col>
+    <ion-col class="ion-text-center">
+      <ion-button [disabled]="!periodoGroup.valid" (click)="salvar()">
+        Salvar
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

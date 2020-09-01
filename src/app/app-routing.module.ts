@@ -21,6 +21,10 @@ const routes: Routes = [
         (m) => m.ClienteFormPageModule
       ),
   },
+  {
+    path: 'periodo-view',
+    loadChildren: () => import('./page/periodo-view/periodo-view.module').then( m => m.PeriodoViewPageModule)
+  },
 ];
 
 @NgModule({

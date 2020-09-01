@@ -30,6 +30,12 @@ export class AppComponent {
       icon: "card",
       colorName: "blue",
     },
+    {
+      title: "Períodos",
+      url: "/periodo-view",
+      icon: "calendar",
+      colorName: "blue",
+    },
   ];
 
   constructor(

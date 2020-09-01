@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Períodos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="adicionarPeriodo()"
+        >Novo
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar
+    placeholder="Filtrar por mes ou ano"
+    (ionChange)="filtroEvent($event)"
+  >
+  </ion-searchbar>
+
+  <ion-grid>
+    <ion-row class="linha-zebrada" *ngFor="let periodo of filteredPeriodos">
+      <ion-col size-sm="5" size="12"> {{ periodo.mesAno }} </ion-col>
+      <ion-col size-sm="2" size="12">
+        <ion-button color="light" (click)="editar(periodo)">
+          <ion-icon name="pencil"></ion-icon>
+        </ion-button>
+        <ion-button color="light" (click)="deletar(periodo)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

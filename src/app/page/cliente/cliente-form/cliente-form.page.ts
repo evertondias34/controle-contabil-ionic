@@ -11,7 +11,7 @@ import { Cliente } from "src/app/models/cliente";
 // import { ClienteService } from "src/app/service/cliente/cliente.service";
 import { ModalController } from "@ionic/angular";
 import { Item } from "src/app/models/item";
-import { ClienteService } from "src/app/service/cliente.service";
+import { ClienteService } from "src/app/service/cliente/cliente.service";
 
 const celRegex = new FormControl("", Validators.pattern("[a-zA-Z ]*"));
 

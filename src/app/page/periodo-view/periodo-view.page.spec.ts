@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PeriodoViewComponent } from './periodo-view.component';
+import { PeriodoViewPage } from './periodo-view.page';
 
-describe('PeriodoViewComponent', () => {
-  let component: PeriodoViewComponent;
-  let fixture: ComponentFixture<PeriodoViewComponent>;
+describe('PeriodoViewPage', () => {
+  let component: PeriodoViewPage;
+  let fixture: ComponentFixture<PeriodoViewPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PeriodoViewComponent ],
+      declarations: [ PeriodoViewPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PeriodoViewComponent);
+    fixture = TestBed.createComponent(PeriodoViewPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
