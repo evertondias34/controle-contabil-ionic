@@ -1,60 +1,62 @@
-import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { Injectable } from "@angular/core";
+import {
+  AlertController,
+  LoadingController,
+  ToastController,
+} from "@ionic/angular";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class MenssagemService {
-  public loading:any;
+  public loading: any;
 
-  constructor(public alertController: AlertController
-    , public loadingCtrl: LoadingController
-    , public toastController: ToastController) { 
+  constructor(
+    public alertController: AlertController,
+    public loadingCtrl: LoadingController,
+    public toastController: ToastController
+  ) {}
+
+  alerta(mensagem: string) {
+    this.sucessoAlert(mensagem);
   }
 
-
-  alerta(mensagem:string) {
-    this.sucessoAlert(mensagem)
-  }
-
-
-  async sucesso(mensagem:string) {
+  async sucesso(mensagem: string) {
     const toast = await this.toastController.create({
       message: mensagem,
       duration: 10000,
       position: "top",
-      color:"success"
+      color: "success",
     });
     toast.present();
   }
 
-  private async sucessoAlert(mensagem:string) {
+  private async sucessoAlert(mensagem: string) {
     const alert = await this.alertController.create({
-      header: 'Sucesso',
+      header: "Sucesso",
       message: mensagem,
-      buttons: ['OK']
+      buttons: ["OK"],
     });
 
     await alert.present();
   }
 
-  async error(mensagem:string) {
+  async error(mensagem: string) {
     // this.errorAlert(mensagem);
     const toast = await this.toastController.create({
       message: mensagem,
       duration: 10000,
       position: "top",
-      color:"danger"
-
+      color: "danger",
     });
     toast.present();
   }
 
-  private async errorAlert(mensagem:string) {
+  private async errorAlert(mensagem: string) {
     const alert = await this.alertController.create({
-      header: 'Erro',
+      header: "Erro",
       message: mensagem,
-      buttons: ['OK']
+      buttons: ["OK"],
     });
 
     await alert.present();
@@ -64,48 +66,48 @@ export class MenssagemService {
   //   this.confirme(mensagem, okHandler, () => {})
   // }
 
-  confirmar(mensagem:string, okHandler, cancelHandler?) {
-    this.confirmeAlert(mensagem, okHandler, cancelHandler)
+  confirmar(mensagem: string, okHandler, cancelHandler?) {
+    this.confirmeAlert(mensagem, okHandler, cancelHandler);
   }
 
-  private async confirmeAlert(mensagem:string, okHandler, cancelHandler) {
-
+  private async confirmeAlert(mensagem: string, okHandler, cancelHandler) {
     const alert = await this.alertController.create({
-      header: 'Confirmar',
+      header: "Confirmar",
       message: mensagem,
       buttons: [
         {
-          text: 'Cancelar',
-          role: 'cancelar',
-          cssClass: 'secondary',
+          text: "Cancelar",
+          role: "cancelar",
+          cssClass: "secondary",
           handler: (blah) => {
             if (cancelHandler) {
-              cancelHandler()
+              cancelHandler();
             }
-          }
-        }, {
-          text: 'Ok',
+          },
+        },
+        {
+          text: "Ok",
           handler: () => {
             if (okHandler) {
-              okHandler()
+              okHandler();
             }
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
   }
 
-  showLoading:boolean = false;
+  showLoading: boolean = false;
   async mostraLoading() {
     this.showLoading = true;
     this.loading = await this.loadingCtrl.create({
-      message: 'Por favor aguarde...',
+      message: "Por favor aguarde...",
       // duration: 60000,
       backdropDismiss: true,
     });
-    
+
     await this.loading.present();
     //Pode ser que já mandamos esconder o componente, mas ainda nem carregou na tela, por isso temos que validar aqui.
     if (!this.showLoading) {
@@ -116,7 +118,7 @@ export class MenssagemService {
   escondeLoading() {
     this.showLoading = false;
     if (this.loading) {
-      this.loading.dismiss()
+      this.loading.dismiss();
     }
   }
 }

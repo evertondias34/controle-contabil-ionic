@@ -1,17 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Cliente } from "../../models/cliente";
 
-import {
-  Plugins,
-  Capacitor,
-  FilesystemDirectory,
-  ClipboardPluginWeb,
-} from "@capacitor/core";
-import { promisify } from "util";
+import { Plugins } from "@capacitor/core";
 import { Platform } from "@ionic/angular";
 import { Dados } from "src/app/models/dados";
+import { MenssagemService } from "../menssagem/menssagem.service";
 
-const { Filesystem, Storage } = Plugins;
+const { Storage } = Plugins;
 
 @Injectable({
   providedIn: "root",
@@ -22,14 +17,13 @@ export class ClienteService {
   private clientes: Cliente[] = [];
   private platform: Platform;
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform, private menssagemService: MenssagemService) {
     this.platform = platform;
   }
 
   async findAll(): Promise<Cliente[]> {
     try {
       const clientesJson = await Storage.get({ key: this.CLIENTE_STORAGE });
-
       var dadosClientes = JSON.parse(clientesJson.value)[0];
 
       console.log(dadosClientes);
@@ -42,7 +36,8 @@ export class ClienteService {
 
       return this.clientes;
     } catch (error) {
-      console.log("FindAll " + error);
+      this.menssagemService.error("Falha ao buscar Clientes!");
+      console.error("FindAll failed " + error);
     }
   }
 
@@ -55,10 +50,9 @@ export class ClienteService {
 
       this.setClientesStorage(dadosClientes);
     } catch (error) {
-      console.log("Não salvou " + error);
+      this.menssagemService.error("Falha ao deletar Cliente!");
+      console.error("DeleteById failed " + error);
     }
-
-    // return this.redeService.delete<any>("cliente/delete/?id=" + id);
   }
 
   async delete(cliente: Cliente): Promise<any> {
@@ -69,7 +63,8 @@ export class ClienteService {
 
       this.setClientesStorage(dadosClientes);
     } catch (error) {
-      console.log("Não salvou " + error);
+      this.menssagemService.error("Falha ao deletar cliente!");
+      console.error("Delete failed " + error);
     }
   }
 
@@ -80,7 +75,8 @@ export class ClienteService {
 
       this.setClientesStorage(dadosClientes);
     } catch (error) {
-      console.log("Save " + error);
+      this.menssagemService.error("Falha ao salvar cliente!");
+      console.error("Save failed " + error);
     }
   }
 
@@ -91,7 +87,8 @@ export class ClienteService {
 
       this.setClientesStorage(dadosClientes);
     } catch (error) {
-      console.log("Não salvou " + error);
+      this.menssagemService.error("Falha ao atualizar cliente!");
+      console.error("Update failed " + error);
     }
   }
 
