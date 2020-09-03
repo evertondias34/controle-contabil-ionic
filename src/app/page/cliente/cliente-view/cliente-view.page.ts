@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Cliente } from "src/app/models/cliente";
 import { Router, NavigationExtras } from "@angular/router";
 import { ClienteService } from "src/app/service/cliente/cliente.service";
+import { MenssagemService } from "src/app/service/menssagem/menssagem.service";
 
 @Component({
   selector: "app-cliente-view",
@@ -16,8 +17,8 @@ export class ClienteViewPage implements OnInit {
 
   constructor(
     public clienteService: ClienteService,
-    // public sessionService: SessionService,
-    private router: Router // private menssagemService: MenssagemService
+    private router: Router,
+    private menssagemService: MenssagemService
   ) {}
 
   ngOnInit() {}
@@ -27,29 +28,21 @@ export class ClienteViewPage implements OnInit {
   }
 
   adicionarCliente() {
-    // let navigationExtras: NavigationExtras = {
-    //   state: {
-    //     lastId: this._clientes.length,
-    //   },
-    // };
     this.router.navigate(["/cliente-form"]);
-
-    // this.router.navigate(["/cliente-form"]);
   }
 
   async buscarClientes() {
     this._clientes = await this.clienteService.findAll();
-
-    this.filtrar(this._filterBy);
+    this.filteredCliente = this._clientes;
   }
 
   deletar(cliente: Cliente) {
-    // let mensagem = "Deseja excluir o cliente '" + cliente.nome + "' ?";
-    // this.menssagemService.confirmar(mensagem, async () => {
-    //   await this.clienteService.deleteById(cliente.id);
-    //   this.buscarClientes();
-    //   this.menssagemService.sucesso("Cliente removido com sucesso !");
-    // });
+    let mensagem = "Deseja excluir o cliente '" + cliente.nome + "' ?";
+    this.menssagemService.confirmar(mensagem, async () => {
+      await this.clienteService.delete(cliente);
+      this.buscarClientes();
+      this.menssagemService.sucesso("Cliente removido com sucesso !");
+    });
   }
 
   editar(cliente: Cliente) {
@@ -62,22 +55,22 @@ export class ClienteViewPage implements OnInit {
   }
 
   filtroEvent(event) {
-    const val = event.target.value;
-    this._filterBy = val;
-    this.filtrar(val);
+    const filtered = event.target.value;
+    this._filterBy = filtered;
+
+    if (filtered == "") {
+      this.filteredCliente = this._clientes;
+    } else {
+      this.filtrar(filtered);
+    }
   }
 
   filtrar(val: string) {
     this.filteredCliente = this._clientes;
 
-    if (val && val.trim() != "") {
-      val = val.toLowerCase();
-      this.filteredCliente = this.filteredCliente.filter((value) => {
-        return value.nome.toLowerCase().includes(val);
-        // value.estadoCurrent.toLowerCase().includes(val)
-      });
-    } else if (val == "") {
-      this.filteredCliente = this._clientes;
-    }
+    val = val.toLowerCase();
+    this.filteredCliente = this.filteredCliente.filter((value) => {
+      return value.nome.toLowerCase().includes(val);
+    });
   }
 }
