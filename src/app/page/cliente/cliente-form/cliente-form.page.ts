@@ -34,20 +34,19 @@ export class ClienteFormPage implements OnInit {
     private fBuilder: FormBuilder,
     public modalController: ModalController
   ) {
-    if (this.router.getCurrentNavigation().extras.state.cliente) {
+    if (this.router.getCurrentNavigation().extras.state) {
       this.cliente = this.router.getCurrentNavigation().extras.state.cliente;
     } else {
-      this.nextId = this.router.getCurrentNavigation().extras.state.lastId;
+      this.cliente = new Cliente();
     }
     // if (this.router.getCurrentNavigation().extras.state) {
 
     //   this.cliente = this.router.getCurrentNavigation().extras.state.cliente;
     // } else {
-    //   this.cliente = new Cliente();
+
     // }
 
     this.createClienteFormGroup();
-    this.buscarValoresNoServidor();
   }
 
   ngOnInit() {}
@@ -56,14 +55,6 @@ export class ClienteFormPage implements OnInit {
     // this.cliente = await this.clienteService.getClienteFull(this.cliente.id);
 
     this.createClienteFormGroup();
-  }
-
-  async buscarValoresNoServidor() {
-    await this.getEstados();
-
-    if (!!this.cliente.id) {
-      this.buscarClienteCompleto();
-    }
   }
 
   createClienteFormGroup() {
@@ -76,9 +67,8 @@ export class ClienteFormPage implements OnInit {
         this.cliente.telefone,
         Validators.compose([
           Validators.required,
-          Validators.pattern(
-            /^(?:\()[0-9]{2}(?:\))\s?[0-9]{4,5}(?:-)[0-9]{4}$/g
-          ),
+          Validators.pattern(/^(?:\()[0-9]{2}(?:\))\s?[0-9]{5}(?:-)[0-9]{4}$/g),
+          Validators.maxLength(15),
         ]),
       ],
     });
@@ -91,20 +81,22 @@ export class ClienteFormPage implements OnInit {
   }
 
   submitForm() {
-    const clienteEditado = this.clienteGroup.getRawValue();
-    clienteEditado.id = this.cliente.id;
+    const clienteCurrent = this.clienteGroup.getRawValue();
+    clienteCurrent.id = this.cliente.id;
     if (!this.cliente.id) {
-      clienteEditado.id = 2;
+      this.salvar(clienteCurrent);
+    } else {
+      this.atualizar(clienteCurrent);
     }
-
-    console.log(clienteEditado);
-
-    this.salvar(clienteEditado);
+    this.router.navigate(["/cliente-view"]);
   }
 
   async salvar(clienteSalvo: Cliente) {
     clienteSalvo.isAtivo = true;
-    await this.clienteService.update(clienteSalvo);
-    this.router.navigate(["/cliente-view"]);
+    await this.clienteService.save(clienteSalvo);
+  }
+
+  async atualizar(clienteEditado: Cliente) {
+    await this.clienteService.update(clienteEditado);
   }
 }

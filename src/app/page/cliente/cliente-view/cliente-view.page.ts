@@ -27,12 +27,12 @@ export class ClienteViewPage implements OnInit {
   }
 
   adicionarCliente() {
-    let navigationExtras: NavigationExtras = {
-      state: {
-        lastId: this._clientes.length,
-      },
-    };
-    this.router.navigate(["/cliente-form"], navigationExtras);
+    // let navigationExtras: NavigationExtras = {
+    //   state: {
+    //     lastId: this._clientes.length,
+    //   },
+    // };
+    this.router.navigate(["/cliente-form"]);
 
     // this.router.navigate(["/cliente-form"]);
   }

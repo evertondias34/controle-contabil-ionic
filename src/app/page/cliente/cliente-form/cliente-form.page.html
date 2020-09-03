@@ -37,7 +37,12 @@
       <i class="fa fa-whatsapp" aria-hidden="true"></i>
       <ion-item>
         <ion-label position="floating">Telefone</ion-label>
-        <ion-input type="tel" formControlName="telefone"></ion-input>
+        <ion-input
+          placeholder="(99) 99999-9999"
+          type="tel"
+          formControlName="telefone"
+          maxlength="15"
+        ></ion-input>
       </ion-item>
     </div>
     <div *ngIf="clienteGroup.controls.telefone.errors">
