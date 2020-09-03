@@ -24,17 +24,17 @@ export class ClienteService {
   async findAll(): Promise<Cliente[]> {
     try {
       const clientesJson = await Storage.get({ key: this.CLIENTE_STORAGE });
-      var dadosClientes = JSON.parse(clientesJson.value)[0];
+      var dadosClientes = JSON.parse(clientesJson.value);
 
       console.log(dadosClientes);
 
       if (dadosClientes) {
-        const { nextId, dados } = dadosClientes;
+        const { nextId, dados } = dadosClientes[0];
         this.idCurrent = nextId;
         this.clientes = dados;
       }
 
-      return this.clientes;
+      return this.getClientesAtivos();
     } catch (error) {
       this.menssagemService.error("Falha ao buscar Clientes!");
       console.error("FindAll failed " + error);
@@ -103,6 +103,14 @@ export class ClienteService {
     dadosClientes.dados = this.clientes;
 
     return dadosClientes;
+  }
+
+  private getClientesAtivos(): Cliente[] {
+    var clientesAtivos: Cliente[] = this.clientes.filter(
+      (cliente) => cliente.isAtivo
+    );
+
+    return clientesAtivos;
   }
 
   private async setClientesStorage(allClientes: Dados) {
