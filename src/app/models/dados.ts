@@ -1,4 +1,4 @@
 export class Dados {
-  nextId: number;
-  dados: any[];
+  lastId: number;
+  values: any[];
 }

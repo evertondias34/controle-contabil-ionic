@@ -29,9 +29,9 @@ export class ClienteService {
       console.log(dadosClientes);
 
       if (dadosClientes) {
-        const { nextId, dados } = dadosClientes[0];
-        this.idCurrent = nextId;
-        this.clientes = dados;
+        const { lastId, values } = dadosClientes[0];
+        this.idCurrent = lastId;
+        this.clientes = values;
       }
 
       return this.getClientesAtivos();
@@ -99,8 +99,8 @@ export class ClienteService {
 
   private createDadosCliente(): Dados {
     var dadosClientes = new Dados();
-    dadosClientes.nextId = this.idCurrent;
-    dadosClientes.dados = this.clientes;
+    dadosClientes.lastId = this.idCurrent;
+    dadosClientes.values = this.clientes;
 
     return dadosClientes;
   }
