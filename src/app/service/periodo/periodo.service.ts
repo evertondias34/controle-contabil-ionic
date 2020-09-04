@@ -41,8 +41,6 @@ export class PeriodoService {
         const { lastId, values } = dadosPeriodos[0];
         this.idCurrent = lastId;
         this.periodos = values;
-
-        console.log(this.periodos);
       }
 
       return this.getPeriodosAtivos();
