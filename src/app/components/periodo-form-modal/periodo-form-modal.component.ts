@@ -26,7 +26,7 @@ export class PeriodoFormModalComponent implements OnInit {
         this.periodo,
         Validators.compose([
           Validators.required,
-          Validators.pattern(/^[a-z]{3}(?:-)[0-9]{4}$/g),
+          Validators.pattern(/^[a-z, A-Z]{3}(?:-)[0-9]{4}$/g),
         ]),
       ],
     });
