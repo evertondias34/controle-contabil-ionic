@@ -1,8 +1,9 @@
+import { Periodo } from "./../../models/periodo";
 import { Component, OnInit } from "@angular/core";
-import { Periodo } from "src/app/models/periodo";
 import { PeriodoFormModalComponent } from "src/app/components/periodo-form-modal/periodo-form-modal.component";
 import { ModalController } from "@ionic/angular";
 import { PeriodoService } from "src/app/service/periodo/periodo.service";
+import { MenssagemService } from "src/app/service/menssagem/menssagem.service";
 
 @Component({
   selector: "app-periodo-view",
@@ -15,7 +16,8 @@ export class PeriodoViewPage implements OnInit {
   _filterBy: string = "";
   constructor(
     public periodoService: PeriodoService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private menssagemService: MenssagemService
   ) {}
 
   ngOnInit() {}
@@ -24,61 +26,85 @@ export class PeriodoViewPage implements OnInit {
     this.buscarPeriodos();
   }
 
-  async adicionarPeriodo() {
+  adicionarPeriodo() {
+    let novoPeriodo = new Periodo();
+    novoPeriodo.mesAno = "";
+    this.formPeriodo(novoPeriodo);
+  }
+
+  async atualizar(periodoEditado: Periodo) {
+    await this.periodoService.update(periodoEditado);
+  }
+
+  async buscarPeriodos() {
+    this._periodos = await this.periodoService.findAll();
+    this.filteredPeriodos = this._periodos;
+  }
+
+  deletar(periodo: Periodo) {
+    let mensagem = "Deseja excluir o período '" + periodo.mesAno + "' ?";
+    this.menssagemService.confirmar(mensagem, async () => {
+      await this.periodoService.delete(periodo);
+      this.buscarPeriodos();
+      this.menssagemService.sucesso("Período removido com sucesso !");
+    });
+  }
+
+  editar(periodoEditado: Periodo) {
+    this.formPeriodo(periodoEditado);
+  }
+
+  filtroEvent(event) {
+    const filter = event.target.value;
+
+    if (filter == "") {
+      this.filteredPeriodos = this._periodos;
+    } else {
+      this.filtrar(filter);
+    }
+  }
+
+  filtrar(filter: string) {
+    this.filteredPeriodos = this._periodos;
+
+    filter = filter.toLowerCase();
+    this.filteredPeriodos = this.filteredPeriodos.filter((periodo) => {
+      return periodo.mesAno.toLowerCase().includes(filter);
+    });
+  }
+
+  async formPeriodo(periodo: Periodo) {
     const modal = await this.modalController.create({
       component: PeriodoFormModalComponent,
       componentProps: {
-        periodo: "",
+        periodo: periodo.mesAno,
       },
     });
 
     modal.onDidDismiss().then((detail: any) => {
       if (detail.data) {
-        let novoPeriodo = new Periodo();
-        novoPeriodo.mesAno = detail.data;
+        console.log(detail.data);
 
-        console.log(novoPeriodo);
-        // this.getEstadoSelected(detail.data);
+        periodo.mesAno = detail.data;
+
+        this.submitForm(periodo);
       }
     });
 
     return await modal.present();
   }
 
-  async buscarPeriodos() {
-    // this._periodos = await this.periodoService.findAll();
-
-    this.filtrar(this._filterBy);
+  async salvar(novoPeriodo: Periodo) {
+    await this.periodoService.save(novoPeriodo);
   }
 
-  deletar(perido: Periodo) {
-    // let mensagem = "Deseja excluir o cliente '" + cliente.nome + "' ?";
-    // this.menssagemService.confirmar(mensagem, async () => {
-    //   await this.clienteService.deleteById(cliente.id);
-    //   this.buscarClientes();
-    //   this.menssagemService.sucesso("Cliente removido com sucesso !");
-    // });
-  }
-
-  editar() {}
-
-  filtroEvent(event) {
-    const val = event.target.value;
-    this._filterBy = val;
-
-    if (!this._filterBy || this._filterBy == "") {
-      this.filteredPeriodos = this._periodos;
+  submitForm(periodo: Periodo) {
+    if (!periodo.id) {
+      this.salvar(periodo);
     } else {
-      this.filtrar(this._filterBy);
+      this.atualizar(periodo);
     }
-  }
 
-  filtrar(val: string) {
-    this.filteredPeriodos = this._periodos;
-
-    val = val.toLowerCase();
-    this.filteredPeriodos = this.filteredPeriodos.filter((value) => {
-      return value.mesAno.toLowerCase().includes(val);
-    });
+    this.buscarPeriodos();
   }
 }

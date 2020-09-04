@@ -56,6 +56,10 @@ export class ClienteFormPage implements OnInit {
     this.clienteGroup.markAllAsTouched();
   }
 
+  async salvar(clienteSalvo: Cliente) {
+    await this.clienteService.save(clienteSalvo);
+  }
+
   submitForm() {
     const clienteCurrent = this.clienteGroup.getRawValue();
     clienteCurrent.id = this.cliente.id;
@@ -68,9 +72,5 @@ export class ClienteFormPage implements OnInit {
     }
 
     this.router.navigate(["/cliente-view"]);
-  }
-
-  async salvar(clienteSalvo: Cliente) {
-    await this.clienteService.save(clienteSalvo);
   }
 }

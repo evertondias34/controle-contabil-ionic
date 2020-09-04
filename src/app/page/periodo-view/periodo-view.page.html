@@ -21,7 +21,9 @@
 
   <ion-grid>
     <ion-row class="linha-zebrada" *ngFor="let periodo of filteredPeriodos">
-      <ion-col size-sm="5" size="12"> {{ periodo.mesAno }} </ion-col>
+      <ion-col size-sm="5" size="12">
+        {{ periodo.mesAno.toUpperCase() }}
+      </ion-col>
       <ion-col size-sm="2" size="12">
         <ion-button color="light" (click)="editar(periodo)">
           <ion-icon name="pencil"></ion-icon>

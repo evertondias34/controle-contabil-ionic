@@ -37,10 +37,8 @@ export class PeriodoFormModalComponent implements OnInit {
   }
 
   salvar() {
-    this.periodo = this.periodoGroup.getRawValue();
+    var periodoFinal: string = this.periodoGroup.controls.nomePeriodo.value;
 
-    console.log(this.periodo);
-
-    this.modalController.dismiss(this.periodo);
+    this.modalController.dismiss(periodoFinal);
   }
 }

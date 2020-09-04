@@ -55,22 +55,22 @@ export class ClienteViewPage implements OnInit {
   }
 
   filtroEvent(event) {
-    const filtered = event.target.value;
-    this._filterBy = filtered;
+    const filter = event.target.value;
+    this._filterBy = filter;
 
-    if (filtered == "") {
+    if (filter == "") {
       this.filteredCliente = this._clientes;
     } else {
-      this.filtrar(filtered);
+      this.filtrar(filter);
     }
   }
 
-  filtrar(val: string) {
+  filtrar(filter: string) {
     this.filteredCliente = this._clientes;
 
-    val = val.toLowerCase();
-    this.filteredCliente = this.filteredCliente.filter((value) => {
-      return value.nome.toLowerCase().includes(val);
+    filter = filter.toLowerCase();
+    this.filteredCliente = this.filteredCliente.filter((cliente) => {
+      return cliente.nome.toLowerCase().includes(filter);
     });
   }
 }

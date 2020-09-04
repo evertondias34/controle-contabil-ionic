@@ -21,26 +21,6 @@ export class ClienteService {
     this.platform = platform;
   }
 
-  async findAll(): Promise<Cliente[]> {
-    try {
-      const clientesJson = await Storage.get({ key: this.CLIENTE_STORAGE });
-      var dadosClientes = JSON.parse(clientesJson.value);
-
-      console.log(dadosClientes);
-
-      if (dadosClientes) {
-        const { lastId, values } = dadosClientes[0];
-        this.idCurrent = lastId;
-        this.clientes = values;
-      }
-
-      return this.getClientesAtivos();
-    } catch (error) {
-      this.menssagemService.error("Falha ao buscar Clientes!");
-      console.error("FindAll failed " + error);
-    }
-  }
-
   async deleteById(id: number): Promise<any> {
     try {
       this.clientes = await this.clientes.filter(
@@ -68,6 +48,26 @@ export class ClienteService {
     }
   }
 
+  async findAll(): Promise<Cliente[]> {
+    try {
+      const clientesJson = await Storage.get({ key: this.CLIENTE_STORAGE });
+      var dadosClientes = JSON.parse(clientesJson.value);
+
+      console.log(dadosClientes);
+
+      if (dadosClientes) {
+        const { lastId, values } = dadosClientes[0];
+        this.idCurrent = lastId;
+        this.clientes = values;
+      }
+
+      return this.getClientesAtivos();
+    } catch (error) {
+      this.menssagemService.error("Falha ao buscar Clientes!");
+      console.error("FindAll failed " + error);
+    }
+  }
+
   async save(cliente: Cliente): Promise<any> {
     try {
       this.addNovo(cliente);
@@ -82,8 +82,8 @@ export class ClienteService {
 
   async update(cliente: Cliente): Promise<any> {
     try {
-      var dadosClientes = this.createDadosCliente();
       this.refresh(cliente);
+      var dadosClientes = this.createDadosCliente();
 
       this.setClientesStorage(dadosClientes);
     } catch (error) {
@@ -94,6 +94,7 @@ export class ClienteService {
 
   private addNovo(novoCliente: Cliente) {
     novoCliente.id = ++this.idCurrent;
+    novoCliente.isAtivo = true;
     this.clientes.push(novoCliente);
   }
 
