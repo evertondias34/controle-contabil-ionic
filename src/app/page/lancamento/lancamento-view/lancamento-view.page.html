@@ -22,15 +22,15 @@
   <ion-grid>
     <ion-row
       class="linha-zebrada"
-      *ngFor="let lancamento of filteredLancamentos"
+      *ngFor="let lancamentoBean of filteredLancamentosBean"
     >
-      <ion-col size-sm="5" size="12"> {{lancamento.cliente.nome}} </ion-col>
-      <ion-col size-sm="5" size="12"> {{lancamento.periodo.mesAno}} </ion-col>
+      <ion-col size-sm="5" size="12"> {{lancamentoBean.nomeCliente}} </ion-col>
+      <ion-col size-sm="5" size="12"> {{lancamentoBean.periodo}} </ion-col>
       <ion-col size-sm="2" size="12">
-        <ion-button color="light" (click)="editar(lancamento)">
+        <ion-button color="light" (click)="editar(lancamentoBean.idLancamento)">
           <ion-icon name="pencil"></ion-icon>
         </ion-button>
-        <ion-button color="light" (click)="deletar(lancamento)">
+        <ion-button color="light" (click)="deletar(lancamentoBean)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
       </ion-col>

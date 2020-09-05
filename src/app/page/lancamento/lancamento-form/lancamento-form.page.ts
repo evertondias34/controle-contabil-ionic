@@ -34,9 +34,10 @@ export class LancamentoFormPage implements OnInit {
     public modalController: ModalController
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
-      this.lancamento = this.router.getCurrentNavigation().extras.state.lancamento;
-      this.clienteSelected = this.lancamento.cliente;
-      this.periodoSelected = this.lancamento.periodo;
+      // this.lancamento = this.router.getCurrentNavigation().extras.state.lancamento;
+      // this.clienteSelected = this.lancamento.cliente;
+      // this.periodoSelected = this.lancamento.periodo;
+      this.buscarLancamentoCompleto();
       this.isNewLancamento = false;
     } else {
       this.lancamento = new Lancamento();
@@ -70,6 +71,16 @@ export class LancamentoFormPage implements OnInit {
     });
 
     // this.contratoGroup.markAllAsTouched();
+  }
+
+  async buscarLancamentoCompleto() {
+    let idLancamento = this.router.getCurrentNavigation().extras.state
+      .idLancamento;
+    // this.lancamento = await lancamentoService.getContratoFull(idLancamento);
+    this.clienteSelected = this.lancamento.cliente;
+    this.periodoSelected = this.lancamento.periodo;
+
+    this.createLancamentoFormGroup();
   }
 
   async getClientes() {

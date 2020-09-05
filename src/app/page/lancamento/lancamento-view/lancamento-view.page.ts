@@ -1,8 +1,8 @@
-import { Lancamento } from "./../../../models/lancamento";
 import { Component, OnInit } from "@angular/core";
 import { Router, NavigationExtras } from "@angular/router";
 import { MenssagemService } from "src/app/service/menssagem/menssagem.service";
 import { LancamentoService } from "src/app/service/lancamento/lancamento.service";
+import { LancamentoBean } from "src/app/models/lancamento-bean";
 
 @Component({
   selector: "app-lancamento-view",
@@ -10,8 +10,8 @@ import { LancamentoService } from "src/app/service/lancamento/lancamento.service
   styleUrls: ["./lancamento-view.page.scss"],
 })
 export class LancamentoViewPage implements OnInit {
-  filteredLancamentos: Lancamento[] = [];
-  _lancamentos: Lancamento[] = [];
+  filteredLancamentosBean: LancamentoBean[] = [];
+  _lancamentosBean: LancamentoBean[] = [];
 
   constructor(
     public lancamentoService: LancamentoService,
@@ -31,15 +31,15 @@ export class LancamentoViewPage implements OnInit {
 
   async buscarLancamentos() {
     // this._lancamentos = await this.lancamentoService.findAll();
-    this.filteredLancamentos = this._lancamentos;
+    this.filteredLancamentosBean = this._lancamentosBean;
   }
 
-  deletar(lancamento: Lancamento) {
+  deletar(lancamentoBean: LancamentoBean) {
     let mensagem =
       "Deseja excluir o lancamento do'" +
-      lancamento.cliente.nome +
+      lancamentoBean.nomeCliente +
       " -" +
-      lancamento.periodo.mesAno +
+      lancamentoBean.periodo +
       "'  ?";
     this.menssagemService.confirmar(mensagem, async () => {
       // await this.lancamentoService.delete(lancamento);
@@ -48,10 +48,10 @@ export class LancamentoViewPage implements OnInit {
     });
   }
 
-  editar(lancamento: Lancamento) {
+  editar(idLancamento: number) {
     let navigationExtras: NavigationExtras = {
       state: {
-        lancamento: lancamento,
+        idLancamento: idLancamento,
       },
     };
     this.router.navigate(["/lancamento-form"], navigationExtras);
@@ -61,21 +61,23 @@ export class LancamentoViewPage implements OnInit {
     const filter = event.target.value;
 
     if (filter == "") {
-      this.filteredLancamentos = this._lancamentos;
+      this.filteredLancamentosBean = this._lancamentosBean;
     } else {
       this.filtrar(filter);
     }
   }
 
   filtrar(filter: string) {
-    this.filteredLancamentos = this._lancamentos;
+    this.filteredLancamentosBean = this._lancamentosBean;
 
     filter = filter.toLowerCase();
-    this.filteredLancamentos = this.filteredLancamentos.filter((lancamento) => {
-      return (
-        lancamento.cliente.nome.toLowerCase().includes(filter) ||
-        lancamento.periodo.mesAno.toLocaleLowerCase().includes(filter)
-      );
-    });
+    this.filteredLancamentosBean = this.filteredLancamentosBean.filter(
+      (lancamentoBean) => {
+        return (
+          lancamentoBean.nomeCliente.toLowerCase().includes(filter) ||
+          lancamentoBean.periodo.toLocaleLowerCase().includes(filter)
+        );
+      }
+    );
   }
 }
