@@ -10,10 +10,8 @@ import { MenssagemService } from "src/app/service/menssagem/menssagem.service";
   styleUrls: ["./cliente-view.page.scss"],
 })
 export class ClienteViewPage implements OnInit {
-  filteredCliente: Cliente[] = [];
+  filteredClientes: Cliente[] = [];
   _clientes: Cliente[] = [];
-  _filterBy: string;
-  estados: String;
 
   constructor(
     public clienteService: ClienteService,
@@ -33,7 +31,7 @@ export class ClienteViewPage implements OnInit {
 
   async buscarClientes() {
     this._clientes = await this.clienteService.findAll();
-    this.filteredCliente = this._clientes;
+    this.filteredClientes = this._clientes;
   }
 
   deletar(cliente: Cliente) {
@@ -56,20 +54,19 @@ export class ClienteViewPage implements OnInit {
 
   filtroEvent(event) {
     const filter = event.target.value;
-    this._filterBy = filter;
 
     if (filter == "") {
-      this.filteredCliente = this._clientes;
+      this.filteredClientes = this._clientes;
     } else {
       this.filtrar(filter);
     }
   }
 
   filtrar(filter: string) {
-    this.filteredCliente = this._clientes;
+    this.filteredClientes = this._clientes;
 
     filter = filter.toLowerCase();
-    this.filteredCliente = this.filteredCliente.filter((cliente) => {
+    this.filteredClientes = this.filteredClientes.filter((cliente) => {
       return cliente.nome.toLowerCase().includes(filter);
     });
   }
