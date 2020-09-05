@@ -4,9 +4,16 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>Cadastro de lançamento</ion-title>
+    <ion-title>Lançamento</ion-title>
 
     <ion-buttons slot="end">
+      <!-- <ion-button
+        *ngIf="isLancamentoConcluido"
+        (click)="submitForm()"
+        color="primary"
+        >CONCLUIR</ion-button
+      > -->
+
       <ion-button
         (click)="submitForm()"
         color="primary"
@@ -55,6 +62,115 @@
       >
         Selecione o Período!
       </p>
+    </div>
+
+    <div class="bordaTipo">
+      <div class="styleDivLabel">
+        <label class="green"> RECEITA</label>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating"> Total Recebido</ion-label>
+        <ion-input type="number" formControlName="valorRecebido"> </ion-input>
+      </ion-item>
+    </div>
+
+    <div class="bordaTipo">
+      <div class="styleDivLabel">
+        <label class="red"> DESPESAS</label>
+      </div>
+
+      <ion-grid>
+        <div class="styleDivLabel">
+          <label> Instituto Nacional do Seguro Social</label>
+        </div>
+        <ion-row>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaRight">
+              <ion-label position="floating"> Valor INSS</ion-label>
+              <ion-input type="number" formControlName="valorInss"> </ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaLeft">
+              <ion-label position="floating"> Pgto INSS</ion-label>
+              <ion-input type="number" formControlName="pagoInss"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <div class="styleDivLabel">
+          <label> Simples Nacional</label>
+        </div>
+        <ion-row>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaRight">
+              <ion-label position="floating"> Valor SN</ion-label>
+              <ion-input type="number" formControlName="valorSn"> </ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaLeft">
+              <ion-label position="floating"> Pgto SN</ion-label>
+              <ion-input type="number" formControlName="pagoSn"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <div class="styleDivLabel">
+          <label> Imposto de renda</label>
+        </div>
+        <ion-row>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaRight">
+              <ion-label position="floating"> Valor IR</ion-label>
+              <ion-input type="number" formControlName="valorIr"> </ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaLeft">
+              <ion-label position="floating"> Pgto IR</ion-label>
+              <ion-input type="number" formControlName="pagoIr"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <div class="styleDivLabel">
+          <label> Pro-labore</label>
+        </div>
+        <ion-row>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaRight">
+              <ion-label position="floating"> Valor Pro</ion-label>
+              <ion-input type="number" formControlName="valorProl"> </ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaLeft">
+              <ion-label position="floating"> Pgto Pro</ion-label>
+              <ion-input type="number" formControlName="pagoProl"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <div class="styleDivLabel">
+          <label> Contabilidade</label>
+        </div>
+        <ion-row>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaRight">
+              <ion-label position="floating"> Valor Cont</ion-label>
+              <ion-input type="number" formControlName="valorCont"> </ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6" size-sm="3">
+            <ion-item class="bordaLeft">
+              <ion-label position="floating"> Pgto Cont</ion-label>
+              <ion-input type="number" formControlName="pagoCont"> </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </form>
 </ion-content>

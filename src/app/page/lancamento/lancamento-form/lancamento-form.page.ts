@@ -24,7 +24,8 @@ export class LancamentoFormPage implements OnInit {
   public periodos: Periodo[] = [];
   public periodoSelected: Periodo;
   public periodosSelect: Item[];
-  public isNewLancamento;
+  public isNewLancamento: boolean;
+  public isLancamentoConcluido: boolean = true;
 
   constructor(
     private clienteService: ClienteService,
@@ -68,6 +69,17 @@ export class LancamentoFormPage implements OnInit {
         this.periodoSelected.mesAno,
         Validators.compose([Validators.required]),
       ],
+      valorInss: [this.lancamento.valorInss],
+      pagoInss: [this.lancamento.pagoInss],
+      valorSn: [this.lancamento.valorSn],
+      pagoSn: [this.lancamento.pagoSn],
+      valorIr: [this.lancamento.valorIr],
+      pagoIr: [this.lancamento.pagoIr],
+      valorProl: [this.lancamento.valorProl],
+      pagoProl: [this.lancamento.pagoProl],
+      valorCont: [this.lancamento.valorCont],
+      pagoCont: [this.lancamento.pagoCont],
+      valorRecebido: [this.lancamento.valorRecebido],
     });
 
     // this.contratoGroup.markAllAsTouched();
