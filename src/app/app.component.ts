@@ -19,16 +19,10 @@ export class AppComponent {
       colorName: "yellow",
     },
     {
-      title: "Contratos",
-      url: "/contrato-view",
-      icon: "document",
+      title: "Lançamentos",
+      url: "/lancamento-view",
+      icon: "receipt",
       colorName: "green",
-    },
-    {
-      title: "Faturamentos",
-      url: "/faturamento-view",
-      icon: "card",
-      colorName: "blue",
     },
     {
       title: "Períodos",

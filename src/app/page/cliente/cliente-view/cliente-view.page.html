@@ -7,7 +7,6 @@
     <ion-buttons slot="end">
       <ion-button color="primary" (click)="adicionarCliente()"
         >Novo
-        <!-- [disabled]="this.sessionService.isEditor()" -->
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -21,16 +20,14 @@
   </ion-searchbar>
 
   <ion-grid>
-    <ion-row class="linha-zebrada" *ngFor="let cliente of filteredCliente">
+    <ion-row class="linha-zebrada" *ngFor="let cliente of filteredClientes">
       <ion-col size-sm="5" size="12"> {{cliente.nome}} </ion-col>
       <ion-col size-sm="5" size="12"> {{cliente.telefone}} </ion-col>
       <ion-col size-sm="2" size="12">
         <ion-button color="light" (click)="editar(cliente)">
-          <!-- [disabled]="this.sessionService.isEditor()" -->
           <ion-icon name="pencil"></ion-icon>
         </ion-button>
         <ion-button color="light" (click)="deletar(cliente)">
-          <!-- [disabled]="this.sessionService.isEditor()" -->
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
       </ion-col>
