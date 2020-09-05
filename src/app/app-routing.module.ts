@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'lancamento-view',
     loadChildren: () => import('./page/lancamento/lancamento-view/lancamento-view.module').then( m => m.LancamentoViewPageModule)
   },
+  {
+    path: 'lancamento-form',
+    loadChildren: () => import('./page/lancamento/lancamento-form/lancamento-form.module').then( m => m.LancamentoFormPageModule)
+  },
 ];
 
 @NgModule({

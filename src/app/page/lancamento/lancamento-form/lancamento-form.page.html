@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Cadastro de lançamento</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="submitForm()"
+        color="primary"
+        [disabled]="!lancamentoGroup.valid"
+        >Salvar</ion-button
+      >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="lancamentoGroup">
+    <ion-item [disabled]="!isNewLancamento">
+      <ion-label position="floating">Cliente</ion-label>
+      <ion-input
+        formControlName="cliente"
+        readonly
+        type="text"
+        (click)="selectCliente()"
+        value="{{clienteSelected.nome}}"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="lancamentoGroup.controls.cliente.errors">
+      <p
+        class="labelError"
+        *ngIf="lancamentoGroup.controls.cliente.errors.required"
+      >
+        Selecione o Cliente!
+      </p>
+    </div>
+
+    <ion-item [disabled]="!isNewLancamento">
+      <ion-label position="floating">Período</ion-label>
+      <ion-input
+        formControlName="periodo"
+        readonly
+        type="text"
+        (click)="selectPeriodo()"
+        value="{{periodoSelected.mesAno}}"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="lancamentoGroup.controls.periodo.errors">
+      <p
+        class="labelError"
+        *ngIf="lancamentoGroup.controls.periodo.errors.required"
+      >
+        Selecione o Período!
+      </p>
+    </div>
+  </form>
+</ion-content>
