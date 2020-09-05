@@ -25,6 +25,10 @@ const routes: Routes = [
     path: 'periodo-view',
     loadChildren: () => import('./page/periodo-view/periodo-view.module').then( m => m.PeriodoViewPageModule)
   },
+  {
+    path: 'lancamento-view',
+    loadChildren: () => import('./page/lancamento/lancamento-view/lancamento-view.module').then( m => m.LancamentoViewPageModule)
+  },
 ];
 
 @NgModule({

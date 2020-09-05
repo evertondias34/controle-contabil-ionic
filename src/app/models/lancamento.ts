@@ -1,9 +1,10 @@
+import { Periodo } from "./periodo";
 import { Cliente } from "./cliente";
 
 export class Lancamento {
   id: number;
   cliente: Cliente;
-  idLancamentoMes: number;
+  periodo: Periodo;
   valorInss: number;
   pgtoInss: number;
   isPagoInss: boolean;
@@ -21,4 +22,5 @@ export class Lancamento {
   isPagoProl: boolean;
   valorRecebido: number;
   isRecebido: boolean;
+  isLancamentoConcluido: boolean;
 }

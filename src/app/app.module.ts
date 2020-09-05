@@ -8,9 +8,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LancamentoViewPipe } from './page/lancamento/lancamento-view.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LancamentoViewPipe],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
