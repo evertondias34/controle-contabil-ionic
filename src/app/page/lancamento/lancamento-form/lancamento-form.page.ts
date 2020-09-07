@@ -22,10 +22,10 @@ export class LancamentoFormPage implements OnInit {
   public lancamentoGroup: FormGroup;
   public lancamento: Lancamento = new Lancamento();
   public clientes: Cliente[] = [];
-  public clienteSelected: Cliente;
+  public clienteSelected: Cliente = new Cliente();
   public clientesSelect: Item[];
   public periodos: Periodo[] = [];
-  public periodoSelected: Periodo;
+  public periodoSelected: Periodo = new Periodo();
   public periodosSelect: Item[];
   public isNewLancamento: boolean;
   public isLancamentoConcluido: boolean = true;
@@ -41,11 +41,14 @@ export class LancamentoFormPage implements OnInit {
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
       this.buscarLancamentoCompleto();
+      // this.clienteSelected = new Cliente();
+      // this.periodoSelected = new Periodo();/
+      // this.periodoSelected.mesAno = "";
       this.isNewLancamento = false;
     } else {
       this.lancamento = new Lancamento();
-      this.clienteSelected = new Cliente();
-      this.periodoSelected = new Periodo();
+      // this.clienteSelected = new Cliente();
+      // this.periodoSelected = new Periodo();
       this.isNewLancamento = true;
     }
 
@@ -74,6 +77,8 @@ export class LancamentoFormPage implements OnInit {
   }
 
   createLancamentoFormGroup() {
+    console.log("createLancamentoFormGroup");
+
     this.lancamentoGroup = this.fBuilder.group({
       id: [this.lancamento.id],
       cliente: [
@@ -81,7 +86,7 @@ export class LancamentoFormPage implements OnInit {
         Validators.compose([Validators.required]),
       ],
       periodo: [
-        this.periodoSelected.mesAno,
+        this.periodoSelected ? this.periodoSelected.mesAno : "",
         Validators.compose([Validators.required]),
       ],
       valorInss: [this.lancamento.valorInss],
@@ -104,6 +109,16 @@ export class LancamentoFormPage implements OnInit {
 
   async getPeriodos() {
     this.periodos = await this.periodoService.findAll();
+  }
+
+  hasValorPago(valor: number, isPago: boolean): boolean {
+    var hasValorPago = false;
+
+    if (valor != null && isPago) {
+      hasValorPago = true;
+    }
+
+    return hasValorPago;
   }
 
   async salvar(novoLancamento: Lancamento) {
@@ -141,18 +156,6 @@ export class LancamentoFormPage implements OnInit {
       hasRecebido;
 
     lancamento.isLancamentoConcluido = isConcluidoLancamento;
-
-    // console.log(hasInssPago);
-  }
-
-  hasValorPago(valor: number, isPago: boolean): boolean {
-    var hasValorPago = false;
-
-    if (valor != null && isPago) {
-      hasValorPago = true;
-    }
-
-    return hasValorPago;
   }
 
   submitForm() {
@@ -161,13 +164,13 @@ export class LancamentoFormPage implements OnInit {
     lancamento.periodo = this.periodoSelected;
     this.setIsLancamentoConcluido(lancamento);
 
-    // if (!this.lancamento.id) {
-    //   this.salvar(lancamento);
-    // } else {
-    //   this.atualizar(lancamento);
-    // }
+    if (!this.lancamento.id) {
+      this.salvar(lancamento);
+    } else {
+      this.atualizar(lancamento);
+    }
 
-    console.log(lancamento);
+    this.router.navigate(["/lancamento-view"]);
   }
 
   //Select  Cliente
