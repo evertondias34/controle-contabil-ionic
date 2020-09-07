@@ -111,22 +111,61 @@ export class LancamentoFormPage implements OnInit {
   }
 
   setIsLancamentoConcluido(lancamento: Lancamento) {
-    var hasInssPago = lancamento.valorInss && lancamento.isPagoInss;
+    const {
+      valorInss,
+      isPagoInss,
+      valorSn,
+      isPagoSn,
+      valorIr,
+      isPagoIr,
+      valorProl,
+      isPagoProl,
+      valorCont,
+      isPagoCont,
+      valorRecebido,
+    } = lancamento;
 
-    console.log(hasInssPago);
+    var hasInssPago = this.hasValorPago(valorInss, isPagoInss);
+    var hasSnPago = this.hasValorPago(valorSn, isPagoSn);
+    var hasIrPago = this.hasValorPago(valorIr, isPagoIr);
+    var hasProlPago = this.hasValorPago(valorProl, isPagoProl);
+    var hasContPago = this.hasValorPago(valorCont, isPagoCont);
+    var hasRecebido = this.hasValorPago(valorRecebido, true);
+
+    var isConcluidoLancamento =
+      hasInssPago &&
+      hasSnPago &&
+      hasIrPago &&
+      hasProlPago &&
+      hasContPago &&
+      hasRecebido;
+
+    lancamento.isLancamentoConcluido = isConcluidoLancamento;
+
+    // console.log(hasInssPago);
+  }
+
+  hasValorPago(valor: number, isPago: boolean): boolean {
+    var hasValorPago = false;
+
+    if (valor != null && isPago) {
+      hasValorPago = true;
+    }
+
+    return hasValorPago;
   }
 
   submitForm() {
     const lancamento: Lancamento = this.lancamentoGroup.getRawValue() as Lancamento;
     lancamento.cliente = this.clienteSelected;
     lancamento.periodo = this.periodoSelected;
-    // this.setIsLancamentoConcluido(lancamento);
+    this.setIsLancamentoConcluido(lancamento);
 
-    if (!this.lancamento.id) {
-      this.salvar(lancamento);
-    } else {
-      this.atualizar(lancamento);
-    }
+    // if (!this.lancamento.id) {
+    //   this.salvar(lancamento);
+    // } else {
+    //   this.atualizar(lancamento);
+    // }
 
     console.log(lancamento);
   }
