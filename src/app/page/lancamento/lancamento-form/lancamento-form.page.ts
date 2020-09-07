@@ -1,11 +1,14 @@
+import { LancamentoService } from "src/app/service/lancamento/lancamento.service";
 import { PeriodoService } from "./../../../service/periodo/periodo.service";
+import { ClienteService } from "src/app/service/cliente/cliente.service";
+
 import { Periodo } from "./../../../models/periodo";
 import { Lancamento } from "./../../../models/lancamento";
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Cliente } from "src/app/models/cliente";
 import { Item } from "src/app/models/item";
-import { ClienteService } from "src/app/service/cliente/cliente.service";
+
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { SelectModalComponent } from "src/app/components/select-modal/select-modal.component";
@@ -31,14 +34,12 @@ export class LancamentoFormPage implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private periodoService: PeriodoService,
+    private lancamentoService: LancamentoService,
     private router: Router,
     private fBuilder: FormBuilder,
     public modalController: ModalController
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
-      // this.lancamento = this.router.getCurrentNavigation().extras.state.lancamento;
-      // this.clienteSelected = this.lancamento.cliente;
-      // this.periodoSelected = this.lancamento.periodo;
       this.buscarLancamentoCompleto();
       this.isNewLancamento = false;
     } else {
@@ -55,7 +56,7 @@ export class LancamentoFormPage implements OnInit {
   ngOnInit() {}
 
   async atualizar(lancamentoEditado: Lancamento) {
-    // await this.clienteService.update(lancamentoEditado);
+    await this.lancamentoService.update(lancamentoEditado);
   }
 
   async buscarDadosToSelect() {
@@ -64,9 +65,8 @@ export class LancamentoFormPage implements OnInit {
   }
 
   async buscarLancamentoCompleto() {
-    let idLancamento = this.router.getCurrentNavigation().extras.state
-      .idLancamento;
-    // this.lancamento = await lancamentoService.getContratoFull(idLancamento);
+    let id = this.router.getCurrentNavigation().extras.state.idLancamento;
+    this.lancamento = await this.lancamentoService.getContratoFull(id);
     this.clienteSelected = this.lancamento.cliente;
     this.periodoSelected = this.lancamento.periodo;
 
@@ -107,13 +107,20 @@ export class LancamentoFormPage implements OnInit {
   }
 
   async salvar(novoLancamento: Lancamento) {
-    // await this.lancamentoService.save(novoLancamento);
+    await this.lancamentoService.save(novoLancamento);
+  }
+
+  setIsLancamentoConcluido(lancamento: Lancamento) {
+    var hasInssPago = lancamento.valorInss && lancamento.isPagoInss;
+
+    console.log(hasInssPago);
   }
 
   submitForm() {
     const lancamento: Lancamento = this.lancamentoGroup.getRawValue() as Lancamento;
     lancamento.cliente = this.clienteSelected;
     lancamento.periodo = this.periodoSelected;
+    // this.setIsLancamentoConcluido(lancamento);
 
     if (!this.lancamento.id) {
       this.salvar(lancamento);

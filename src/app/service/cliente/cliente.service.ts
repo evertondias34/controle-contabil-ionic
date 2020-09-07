@@ -114,6 +114,14 @@ export class ClienteService {
     return clientesAtivos;
   }
 
+  private refresh(clienteEditado: Cliente) {
+    const indexEditado = this.clientes.findIndex(({ id }) => {
+      return id === clienteEditado.id;
+    });
+
+    this.clientes[indexEditado] = clienteEditado;
+  }
+
   private async setClientesStorage(allClientes: Dados) {
     var clientesDados = [allClientes];
 
@@ -123,18 +131,10 @@ export class ClienteService {
         ? JSON.stringify(clientesDados)
         : JSON.stringify(
             clientesDados.map((dados) => {
-              const clienteCopy = { ...dados };
-              return clienteCopy;
+              const cliente = { ...dados };
+              return cliente;
             })
           ),
     });
-  }
-
-  private refresh(clienteEditado: Cliente) {
-    const indexEditado = this.clientes.findIndex(({ id }) => {
-      return id === clienteEditado.id;
-    });
-
-    this.clientes[indexEditado] = clienteEditado;
   }
 }

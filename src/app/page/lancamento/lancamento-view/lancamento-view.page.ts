@@ -30,19 +30,19 @@ export class LancamentoViewPage implements OnInit {
   }
 
   async buscarLancamentos() {
-    // this._lancamentos = await this.lancamentoService.findAll();
+    this._lancamentosBean = await this.lancamentoService.findAll();
     this.filteredLancamentosBean = this._lancamentosBean;
   }
 
   deletar(lancamentoBean: LancamentoBean) {
     let mensagem =
-      "Deseja excluir o lancamento do'" +
+      "Deseja excluir o lancamento: '" +
       lancamentoBean.nomeCliente +
       " -" +
       lancamentoBean.periodo +
       "'  ?";
     this.menssagemService.confirmar(mensagem, async () => {
-      // await this.lancamentoService.delete(lancamento);
+      await this.lancamentoService.deleteById(lancamentoBean.idLancamento);
       this.buscarLancamentos();
       this.menssagemService.sucesso("Lançamento removido com sucesso !");
     });

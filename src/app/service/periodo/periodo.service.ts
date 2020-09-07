@@ -96,6 +96,14 @@ export class PeriodoService {
     return periodosAtivos;
   }
 
+  private refresh(periodoEditado: Periodo) {
+    const indexEditado = this.periodos.findIndex(({ id }) => {
+      return id === periodoEditado.id;
+    });
+
+    this.periodos[indexEditado] = periodoEditado;
+  }
+
   private async setPeriodosStorage(allPeridos: Dados) {
     var periodosDados = [allPeridos];
 
@@ -110,13 +118,5 @@ export class PeriodoService {
             })
           ),
     });
-  }
-
-  private refresh(periodoEditado: Periodo) {
-    const indexEditado = this.periodos.findIndex(({ id }) => {
-      return id === periodoEditado.id;
-    });
-
-    this.periodos[indexEditado] = periodoEditado;
   }
 }
