@@ -64,7 +64,7 @@
       </p>
     </div>
 
-    <div class="bordaTipo">
+    <div class="borda">
       <div class="styleDivLabel">
         <label class="green"> RECEITA</label>
       </div>
@@ -75,7 +75,7 @@
       </ion-item>
     </div>
 
-    <div class="bordaTipo">
+    <div class="borda">
       <div class="styleDivLabel">
         <label class="red"> DESPESAS</label>
       </div>
@@ -84,17 +84,21 @@
         <div class="styleDivLabel">
           <label> Instituto Nacional do Seguro Social</label>
         </div>
-        <ion-row>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaRight">
+        <ion-row class="borda">
+          <ion-col size="5" size-sm="3">
+            <ion-item>
               <ion-label position="floating"> Valor INSS</ion-label>
               <ion-input type="number" formControlName="valorInss"> </ion-input>
             </ion-item>
           </ion-col>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaLeft">
-              <ion-label position="floating"> Pgto INSS</ion-label>
-              <ion-input type="number" formControlName="pagoInss"> </ion-input>
+          <ion-col size="7" size-sm="3">
+            <ion-item lines="none">
+              <ion-checkbox
+                class="marginCheck"
+                slot="start"
+                formControlName="isPagoInss"
+              ></ion-checkbox>
+              <ion-label>INSS pago</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -102,17 +106,21 @@
         <div class="styleDivLabel">
           <label> Simples Nacional</label>
         </div>
-        <ion-row>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaRight">
+        <ion-row class="borda">
+          <ion-col size="5" size-sm="3">
+            <ion-item>
               <ion-label position="floating"> Valor SN</ion-label>
               <ion-input type="number" formControlName="valorSn"> </ion-input>
             </ion-item>
           </ion-col>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaLeft">
-              <ion-label position="floating"> Pgto SN</ion-label>
-              <ion-input type="number" formControlName="pagoSn"> </ion-input>
+          <ion-col size="7" size-sm="3">
+            <ion-item lines="none">
+              <ion-checkbox
+                class="marginCheck"
+                slot="start"
+                formControlName="isPagoSn"
+              ></ion-checkbox>
+              <ion-label>SN Pago</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -120,17 +128,22 @@
         <div class="styleDivLabel">
           <label> Imposto de renda</label>
         </div>
-        <ion-row>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaRight">
-              <ion-label position="floating"> Valor IR</ion-label>
+        <ion-row class="borda">
+          <!--  [ngClass]="{'bordaPendente': !lancamentoGroup.controls.isPagoIr.value}" -->
+          <ion-col size="5" size-sm="3">
+            <ion-item>
+              <ion-label> Valor IR</ion-label>
               <ion-input type="number" formControlName="valorIr"> </ion-input>
             </ion-item>
           </ion-col>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaLeft">
-              <ion-label position="floating"> Pgto IR</ion-label>
-              <ion-input type="number" formControlName="pagoIr"> </ion-input>
+          <ion-col size="7" size-sm="3">
+            <ion-item lines="none">
+              <ion-checkbox
+                class="marginCheck"
+                slot="start"
+                formControlName="isPagoIr"
+              ></ion-checkbox>
+              <ion-label>IR pago</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -138,17 +151,21 @@
         <div class="styleDivLabel">
           <label> Pro-labore</label>
         </div>
-        <ion-row>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaRight">
-              <ion-label position="floating"> Valor Pro</ion-label>
+        <ion-row class="borda">
+          <ion-col size="5" size-sm="3">
+            <ion-item>
+              <ion-label>Valor Pro</ion-label>
               <ion-input type="number" formControlName="valorProl"> </ion-input>
             </ion-item>
           </ion-col>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaLeft">
-              <ion-label position="floating"> Pgto Pro</ion-label>
-              <ion-input type="number" formControlName="pagoProl"> </ion-input>
+          <ion-col size="7" size-sm="3">
+            <ion-item lines="none">
+              <ion-checkbox
+                class="marginCheck"
+                slot="start"
+                formControlName="isPagoProl"
+              ></ion-checkbox>
+              <ion-label>Pro pago</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -156,17 +173,21 @@
         <div class="styleDivLabel">
           <label> Contabilidade</label>
         </div>
-        <ion-row>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaRight">
-              <ion-label position="floating"> Valor Cont</ion-label>
+        <ion-row class="borda">
+          <ion-col size="5" size-sm="3">
+            <ion-item>
+              <ion-label> Valor Cont</ion-label>
               <ion-input type="number" formControlName="valorCont"> </ion-input>
             </ion-item>
           </ion-col>
-          <ion-col size="6" size-sm="3">
-            <ion-item class="bordaLeft">
-              <ion-label position="floating"> Pgto Cont</ion-label>
-              <ion-input type="number" formControlName="pagoCont"> </ion-input>
+          <ion-col size="7" size-sm="3">
+            <ion-item lines="none">
+              <ion-checkbox
+                class="marginCheck"
+                slot="start"
+                formControlName="isPagoCont"
+              ></ion-checkbox>
+              <ion-label>Cont pago</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>

@@ -26,6 +26,7 @@ export class LancamentoFormPage implements OnInit {
   public periodosSelect: Item[];
   public isNewLancamento: boolean;
   public isLancamentoConcluido: boolean = true;
+  // public isPagoSn = false;
 
   constructor(
     private clienteService: ClienteService,
@@ -53,9 +54,23 @@ export class LancamentoFormPage implements OnInit {
 
   ngOnInit() {}
 
+  async atualizar(lancamentoEditado: Lancamento) {
+    // await this.clienteService.update(lancamentoEditado);
+  }
+
   async buscarDadosToSelect() {
     await this.getClientes();
     await this.getPeriodos();
+  }
+
+  async buscarLancamentoCompleto() {
+    let idLancamento = this.router.getCurrentNavigation().extras.state
+      .idLancamento;
+    // this.lancamento = await lancamentoService.getContratoFull(idLancamento);
+    this.clienteSelected = this.lancamento.cliente;
+    this.periodoSelected = this.lancamento.periodo;
+
+    this.createLancamentoFormGroup();
   }
 
   createLancamentoFormGroup() {
@@ -70,29 +85,17 @@ export class LancamentoFormPage implements OnInit {
         Validators.compose([Validators.required]),
       ],
       valorInss: [this.lancamento.valorInss],
-      pagoInss: [this.lancamento.pagoInss],
+      isPagoInss: [this.lancamento.isPagoInss],
       valorSn: [this.lancamento.valorSn],
-      pagoSn: [this.lancamento.pagoSn],
+      isPagoSn: [this.lancamento.isPagoSn],
       valorIr: [this.lancamento.valorIr],
-      pagoIr: [this.lancamento.pagoIr],
+      isPagoIr: [this.lancamento.isPagoIr],
       valorProl: [this.lancamento.valorProl],
-      pagoProl: [this.lancamento.pagoProl],
+      isPagoProl: [this.lancamento.isPagoProl],
       valorCont: [this.lancamento.valorCont],
-      pagoCont: [this.lancamento.pagoCont],
+      isPagoCont: [this.lancamento.isPagoCont],
       valorRecebido: [this.lancamento.valorRecebido],
     });
-
-    // this.contratoGroup.markAllAsTouched();
-  }
-
-  async buscarLancamentoCompleto() {
-    let idLancamento = this.router.getCurrentNavigation().extras.state
-      .idLancamento;
-    // this.lancamento = await lancamentoService.getContratoFull(idLancamento);
-    this.clienteSelected = this.lancamento.cliente;
-    this.periodoSelected = this.lancamento.periodo;
-
-    this.createLancamentoFormGroup();
   }
 
   async getClientes() {
@@ -103,16 +106,44 @@ export class LancamentoFormPage implements OnInit {
     this.periodos = await this.periodoService.findAll();
   }
 
+  async salvar(novoLancamento: Lancamento) {
+    // await this.lancamentoService.save(novoLancamento);
+  }
+
   submitForm() {
-    // const contratoEditado: any = this.contratoGroup.getRawValue();
-    // contratoEditado.id = this.contrato.id;
-    // contratoEditado.cliente = this.clienteSelected;
-    // let emailsEditados = Array.of(contratoEditado.emails);
-    // contratoEditado.responsaveisEmail = emailsEditados.join(",");
-    // console.log(contratoEditado);
-    // this.setValoresFaturamentos(contratoEditado);
-    // console.log(contratoEditado);
-    // this.salvar(contratoEditado);
+    const lancamento: Lancamento = this.lancamentoGroup.getRawValue() as Lancamento;
+    lancamento.cliente = this.clienteSelected;
+    lancamento.periodo = this.periodoSelected;
+
+    if (!this.lancamento.id) {
+      this.salvar(lancamento);
+    } else {
+      this.atualizar(lancamento);
+    }
+
+    console.log(lancamento);
+  }
+
+  //Select  Cliente
+  createItensCliente() {
+    this.clientesSelect = [];
+    this.clientes.forEach((cliente) => {
+      let novoItem = new Item();
+      novoItem.id = cliente.id;
+      novoItem.nome = cliente.nome;
+      novoItem.isChecked = false;
+      if (cliente === this.clienteSelected) {
+        novoItem.isChecked = true;
+      }
+
+      this.clientesSelect.push(novoItem);
+    });
+  }
+
+  getClienteSelected(clienteItem: Item) {
+    this.clienteSelected = this.clientes.filter((cliente) => {
+      return clienteItem.id === cliente.id;
+    })[0];
   }
 
   async selectCliente() {
@@ -136,48 +167,7 @@ export class LancamentoFormPage implements OnInit {
     return await modal.present();
   }
 
-  createItensCliente() {
-    this.clientesSelect = [];
-    this.clientes.forEach((cliente) => {
-      let novoItem = new Item();
-      novoItem.id = cliente.id;
-      novoItem.nome = cliente.nome;
-      novoItem.isChecked = false;
-      if (cliente === this.clienteSelected) {
-        novoItem.isChecked = true;
-      }
-
-      this.clientesSelect.push(novoItem);
-    });
-  }
-
-  getClienteSelected(clienteItem: Item) {
-    this.clienteSelected = this.clientes.filter((cliente) => {
-      return clienteItem.id === cliente.id;
-    })[0];
-  }
-
-  async selectPeriodo() {
-    this.createItensPeriodo();
-
-    const modal = await this.modalController.create({
-      component: SelectModalComponent,
-      componentProps: {
-        listItens: this.periodosSelect,
-        tipoItem: "Selecionar Período",
-        isSelectMultiples: false,
-      },
-    });
-
-    modal.onDidDismiss().then((detail: any) => {
-      if (detail.data) {
-        this.getPeriodosSelected(detail.data);
-      }
-    });
-
-    return await modal.present();
-  }
-
+  //Select  Periodo
   createItensPeriodo() {
     this.periodosSelect = [];
     this.periodos.forEach((periodo) => {
@@ -197,5 +187,25 @@ export class LancamentoFormPage implements OnInit {
     this.periodoSelected = this.periodos.filter((periodo) => {
       return periodoItem.id === periodo.id;
     })[0];
+  }
+  async selectPeriodo() {
+    this.createItensPeriodo();
+
+    const modal = await this.modalController.create({
+      component: SelectModalComponent,
+      componentProps: {
+        listItens: this.periodosSelect,
+        tipoItem: "Selecionar Período",
+        isSelectMultiples: false,
+      },
+    });
+
+    modal.onDidDismiss().then((detail: any) => {
+      if (detail.data) {
+        this.getPeriodosSelected(detail.data);
+      }
+    });
+
+    return await modal.present();
   }
 }

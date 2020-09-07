@@ -12,11 +12,20 @@
   margin-left: -0.35em;
 }
 
-.bordaTipo {
+.borda {
   padding-top: 2px;
   border-color: lightgray;
   border-style: solid;
   margin-bottom: 1em;
+  border-width: thin;
+}
+
+.bordaPendente {
+  border-color: red;
+}
+
+.marginCheck {
+  margin-right: 1em;
 }
 
 .styleDivLabel {
