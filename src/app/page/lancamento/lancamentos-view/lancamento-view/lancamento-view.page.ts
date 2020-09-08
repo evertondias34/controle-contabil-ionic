@@ -12,6 +12,7 @@ import { LancamentoBean } from "src/app/models/lancamento-bean";
 export class LancamentoViewPage implements OnInit {
   filteredLancamentosBean: LancamentoBean[] = [];
   _lancamentosBean: LancamentoBean[] = [];
+  isShowPendentes: boolean = false;
 
   constructor(
     public lancamentoService: LancamentoService,
@@ -32,6 +33,10 @@ export class LancamentoViewPage implements OnInit {
   async buscarLancamentos() {
     this._lancamentosBean = await this.lancamentoService.findAll();
     this.filteredLancamentosBean = this._lancamentosBean;
+
+    if (this.isShowPendentes) {
+      this.getLancamentosPendentes();
+    }
   }
 
   concluir(idLancamento: number) {
@@ -92,5 +97,21 @@ export class LancamentoViewPage implements OnInit {
         );
       }
     );
+  }
+
+  getLancamentosPendentes() {
+    this.filteredLancamentosBean = this._lancamentosBean.filter(
+      (lancamento) => !lancamento.isConcluido
+    );
+  }
+
+  showLancamentosPendentes(isPendentes: boolean) {
+    if (isPendentes) {
+      this.getLancamentosPendentes();
+    } else {
+      this.filteredLancamentosBean = this._lancamentosBean;
+    }
+
+    this.isShowPendentes = isPendentes;
   }
 }

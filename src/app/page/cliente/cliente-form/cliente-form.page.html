@@ -29,7 +29,7 @@
     </div>
     <div *ngIf="clienteGroup.controls.nome.errors">
       <p class="labelError" *ngIf="clienteGroup.controls.nome.errors.required">
-        Campo obrigatório!
+        Nome obrigatório!
       </p>
     </div>
 
@@ -38,10 +38,10 @@
       <ion-item>
         <ion-label position="floating">Telefone</ion-label>
         <ion-input
-          placeholder="DD 9xxxx xxxx"
+          placeholder="DDD9xxxxxxxx"
           type="tel"
           formControlName="telefone"
-          maxlength="15"
+          maxlength="12"
         ></ion-input>
       </ion-item>
     </div>
@@ -50,7 +50,7 @@
         class="labelError"
         *ngIf="clienteGroup.controls.telefone.errors.required"
       >
-        Campo obrigatório!
+        Telefone obrigatório!
       </p>
       <p
         class="labelError"
@@ -59,32 +59,5 @@
         Formato inválido!
       </p>
     </div>
-
-    <!-- <ion-item>
-      <ion-label position="floating">Estado</ion-label>
-      <ion-input
-        formControlName="estadoAtual"
-        readonly
-        type="text"
-        (click)="selectEstado()"
-        [value]="estadoSelected"
-      ></ion-input> -->
-    <!-- <ion-select formControlName="estadoAtual">
-        <ion-select-option
-          *ngFor="let estadoCurrent of this.estados"
-          [value]="estadoCurrent"
-        >
-          {{estadoCurrent}}
-        </ion-select-option>
-      </ion-select> -->
-    <!-- </ion-item>
-    <div *ngIf="clienteGroup.controls.estadoAtual.errors">
-      <p
-        class="labelError"
-        *ngIf="clienteGroup.controls.estadoAtual.errors.required"
-      >
-        Campo obrigatório!
-      </p>
-    </div> -->
   </form>
 </ion-content>

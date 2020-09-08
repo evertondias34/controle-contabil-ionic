@@ -19,6 +19,19 @@
   >
   </ion-searchbar>
 
+  <ion-item lines="none">
+    <ion-checkbox
+      class="marginCheck"
+      color="primary"
+      [ngModel]="isShowPendentes"
+      slot="start"
+      (ionChange)="showLancamentosPendentes(!isShowPendentes)"
+    >
+    </ion-checkbox>
+
+    <ion-label>Exibir apenas faturamentos pendentes</ion-label>
+  </ion-item>
+
   <ion-grid>
     <ion-row
       class="linha-zebrada"

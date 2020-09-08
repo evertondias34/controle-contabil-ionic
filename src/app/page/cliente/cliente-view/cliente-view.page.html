@@ -23,7 +23,7 @@
     <ion-row class="linha-zebrada" *ngFor="let cliente of filteredClientes">
       <ion-col size-sm="5" size="12"> {{cliente.nome}} </ion-col>
       <ion-col size-sm="5" size="12">
-        <a href="tel:0{{cliente.telefone}}"
+        <a href="tel:{{cliente.telefone}}"
           >{{(cliente.telefone) | phoneView}}</a
         >
       </ion-col>
