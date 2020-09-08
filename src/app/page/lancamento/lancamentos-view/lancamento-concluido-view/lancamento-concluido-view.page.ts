@@ -43,50 +43,38 @@ export class LancamentoConcluidoViewPage implements OnInit {
   }
 
   shareWhatsapp() {
-    this.printarTela();
-    //TODO fazer aqui
+    var telaPrintada = this.printarTela();
 
-    // this.socialSharing.shareViaWhatsApp(
-    //   "Compartilhando o conteúdo de um aplicativo com o Social Sharing.",
-    //   res,
-    //   null
-    // );
-  }
-
-  // private void CreateDirectoryForPictures()
-  // {
-  //     App._dir = new File(
-  //         Environment.GetExternalStoragePublicDirectory(
-  //             Environment.DirectoryPictures), "imgen");
-  //     if (!App._dir.Exists())
-  //     {
-  //         App._dir.Mkdirs();
-  //     }
-  // }
-
-  printarTela() {
-    this.screenshot
-      .save("jpg", 80, "extrato")
-      .then((res) => {
-        this.socialSharing
-          .shareViaWhatsApp(
-            "Compartilhando o conteúdo de um aplicativo com o Social Sharing.",
-            res.filePath,
-            null
-          )
-          .then(() => {
-            this.menssagemService.sucesso("compartilhado com sucesso");
-          })
-          .catch((error) => {
-            this.menssagemService.error(
-              "Falha ao printar lançamento! " + error
-            );
-          });
-
-        this.menssagemService.sucesso("no CAPRICHO!");
+    this.socialSharing
+      .shareViaWhatsApp("Segue o extrato da contabilidade", telaPrintada, null)
+      .then(() => {
+        this.menssagemService.sucesso("Compartilhado com sucesso");
       })
       .catch((error) => {
-        // console.log("falha ao salvar " + error);
+        this.menssagemService.error("Falha ao  compartilhar! " + error);
+      });
+  }
+
+  printarTela(): any {
+    this.screenshot
+      .URI(80)
+      .then((res) => {
+        // var screen = res.URI;
+
+        return res.URI;
+
+        // this.socialSharing
+        //   .shareViaWhatsApp("Segue o extrato da contabilidade", screen, null)
+        //   .then(() => {
+        //     this.menssagemService.sucesso("Compartilhado com sucesso");
+        //   })
+        //   .catch((error) => {
+        //     this.menssagemService.error("Falha ao  compartilhar! " + error);
+        //   });
+
+        // this.menssagemService.sucesso("no CAPRICHO!");
+      })
+      .catch((error) => {
         this.menssagemService.error("Falha ao printar lançamento! " + error);
       });
   }
