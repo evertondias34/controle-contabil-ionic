@@ -1,10 +1,11 @@
+import { RealPipe } from "./real/real.pipe";
 import { PhoneViewPipe } from "./phone-view/phone-view.pipe";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 @NgModule({
-  declarations: [PhoneViewPipe],
+  declarations: [PhoneViewPipe, RealPipe],
   imports: [CommonModule],
-  exports: [PhoneViewPipe],
+  exports: [PhoneViewPipe, RealPipe],
 })
 export class PipeModule {}

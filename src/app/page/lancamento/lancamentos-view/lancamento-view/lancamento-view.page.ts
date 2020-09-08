@@ -34,6 +34,19 @@ export class LancamentoViewPage implements OnInit {
     this.filteredLancamentosBean = this._lancamentosBean;
   }
 
+  concluir(idLancamento: number) {
+    let mensagem =
+      "Deseja concluir esse lancamento? (Após concluído este não poderá mais ser editado";
+    this.menssagemService.confirmar(mensagem, async () => {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          idLancamento: idLancamento,
+        },
+      };
+      this.router.navigate(["/lancamento-concluido-view"], navigationExtras);
+    });
+  }
+
   deletar(lancamentoBean: LancamentoBean) {
     let mensagem =
       "Deseja excluir o lancamento: '" +

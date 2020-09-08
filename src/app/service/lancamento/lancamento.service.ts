@@ -104,12 +104,13 @@ export class LancamentoService {
   }
 
   private createLancamentoBean(lancamento: Lancamento): LancamentoBean {
-    const { id, cliente, periodo } = lancamento;
+    const { id, cliente, periodo, isLancamentoConcluido } = lancamento;
 
     var novoLancamentoBean = new LancamentoBean();
     novoLancamentoBean.idLancamento = id;
     novoLancamentoBean.nomeCliente = cliente.nome;
     novoLancamentoBean.periodo = periodo.mesAno;
+    novoLancamentoBean.isConcluido = isLancamentoConcluido;
 
     return novoLancamentoBean;
   }

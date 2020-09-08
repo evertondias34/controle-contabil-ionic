@@ -22,16 +22,32 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'periodo-view',
-    loadChildren: () => import('./page/periodo-view/periodo-view.module').then( m => m.PeriodoViewPageModule)
+    path: "periodo-view",
+    loadChildren: () =>
+      import("./page/periodo-view/periodo-view.module").then(
+        (m) => m.PeriodoViewPageModule
+      ),
   },
   {
-    path: 'lancamento-view',
-    loadChildren: () => import('./page/lancamento/lancamento-view/lancamento-view.module').then( m => m.LancamentoViewPageModule)
+    path: "lancamento-view",
+    loadChildren: () =>
+      import(
+        "./page/lancamento/lancamentos-view/lancamento-view/lancamento-view.module"
+      ).then((m) => m.LancamentoViewPageModule),
   },
   {
-    path: 'lancamento-form',
-    loadChildren: () => import('./page/lancamento/lancamento-form/lancamento-form.module').then( m => m.LancamentoFormPageModule)
+    path: "lancamento-form",
+    loadChildren: () =>
+      import("./page/lancamento/lancamento-form/lancamento-form.module").then(
+        (m) => m.LancamentoFormPageModule
+      ),
+  },
+  {
+    path: "lancamento-concluido-view",
+    loadChildren: () =>
+      import(
+        "./page/lancamento/lancamentos-view/lancamento-concluido-view/lancamento-concluido-view.module"
+      ).then((m) => m.LancamentoConcluidoViewPageModule),
   },
 ];
 

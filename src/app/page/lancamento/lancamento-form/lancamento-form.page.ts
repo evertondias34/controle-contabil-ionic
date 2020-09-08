@@ -41,14 +41,9 @@ export class LancamentoFormPage implements OnInit {
   ) {
     if (this.router.getCurrentNavigation().extras.state) {
       this.buscarLancamentoCompleto();
-      // this.clienteSelected = new Cliente();
-      // this.periodoSelected = new Periodo();/
-      // this.periodoSelected.mesAno = "";
       this.isNewLancamento = false;
     } else {
       this.lancamento = new Lancamento();
-      // this.clienteSelected = new Cliente();
-      // this.periodoSelected = new Periodo();
       this.isNewLancamento = true;
     }
 

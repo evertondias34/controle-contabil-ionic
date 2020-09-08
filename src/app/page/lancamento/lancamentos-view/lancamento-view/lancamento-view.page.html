@@ -24,9 +24,19 @@
       class="linha-zebrada"
       *ngFor="let lancamentoBean of filteredLancamentosBean"
     >
-      <ion-col size-sm="5" size="12"> {{lancamentoBean.nomeCliente}} </ion-col>
-      <ion-col size-sm="5" size="12"> {{lancamentoBean.periodo}} </ion-col>
+      <ion-col size="7" size-sm="3">{{lancamentoBean.nomeCliente}} </ion-col>
+      <ion-col size="5" size-sm="3"> {{lancamentoBean.periodo}} </ion-col>
       <ion-col size-sm="2" size="12">
+        <ion-button
+          *ngIf="lancamentoBean.isConcluido"
+          color="light"
+          (click)="concluir(lancamentoBean.idLancamento)"
+        >
+          <ion-icon
+            class="buttomConcluir"
+            name="checkmark-done-circle-outline"
+          ></ion-icon>
+        </ion-button>
         <ion-button color="light" (click)="editar(lancamentoBean.idLancamento)">
           <ion-icon name="pencil"></ion-icon>
         </ion-button>
