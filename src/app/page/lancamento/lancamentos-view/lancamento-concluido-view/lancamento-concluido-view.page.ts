@@ -18,6 +18,7 @@ import { error } from "protractor";
 })
 export class LancamentoConcluidoViewPage implements OnInit {
   lancamentoConcluido: LancamentoConcluido = new LancamentoConcluido();
+  isShowButtom: boolean = true;
 
   constructor(
     private lancamentoService: LancamentoService,
@@ -25,11 +26,7 @@ export class LancamentoConcluidoViewPage implements OnInit {
     private screenshot: Screenshot,
     private menssagemService: MenssagemService,
     private socialSharing: SocialSharing
-  ) {
-    // if (this.router.getCurrentNavigation().extras.state) {
-    //   this.buscarLancamentoCompleto();
-    // }
-  }
+  ) {}
 
   ngOnInit() {
     this.buscarLancamentoCompleto();
@@ -43,36 +40,22 @@ export class LancamentoConcluidoViewPage implements OnInit {
   }
 
   shareWhatsapp() {
-    var telaPrintada = this.printarTela();
+    this.isShowButtom = false;
 
-    this.socialSharing
-      .shareViaWhatsApp("Segue o extrato da contabilidade", telaPrintada, null)
-      .then(() => {
-        this.menssagemService.sucesso("Compartilhado com sucesso");
-      })
-      .catch((error) => {
-        this.menssagemService.error("Falha ao  compartilhar! " + error);
-      });
-  }
-
-  printarTela(): any {
     this.screenshot
       .URI(80)
       .then((res) => {
-        // var screen = res.URI;
+        var screen = res.URI;
 
-        return res.URI;
-
-        // this.socialSharing
-        //   .shareViaWhatsApp("Segue o extrato da contabilidade", screen, null)
-        //   .then(() => {
-        //     this.menssagemService.sucesso("Compartilhado com sucesso");
-        //   })
-        //   .catch((error) => {
-        //     this.menssagemService.error("Falha ao  compartilhar! " + error);
-        //   });
-
-        // this.menssagemService.sucesso("no CAPRICHO!");
+        this.socialSharing
+          .shareViaWhatsApp("Segue o extrato da contabilidade", screen, null)
+          .then(() => {
+            this.menssagemService.sucesso("Compartilhado com sucesso");
+            this.isShowButtom = true;
+          })
+          .catch((error) => {
+            this.menssagemService.error("Falha ao  compartilhar! " + error);
+          });
       })
       .catch((error) => {
         this.menssagemService.error("Falha ao printar lançamento! " + error);
