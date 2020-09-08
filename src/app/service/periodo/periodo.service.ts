@@ -4,6 +4,7 @@ import { Platform } from "@ionic/angular";
 import { MenssagemService } from "../menssagem/menssagem.service";
 import { Plugins } from "@capacitor/core";
 import { Dados } from "src/app/models/dados";
+import { LancamentoService } from "../lancamento/lancamento.service";
 
 const { Storage } = Plugins;
 
@@ -16,7 +17,11 @@ export class PeriodoService {
   private periodos: Periodo[] = [];
   private platform: Platform;
 
-  constructor(platform: Platform, private menssagemService: MenssagemService) {
+  constructor(
+    platform: Platform,
+    private menssagemService: MenssagemService,
+    private lancamentoService: LancamentoService
+  ) {
     this.platform = platform;
   }
 
@@ -68,6 +73,8 @@ export class PeriodoService {
       var dadosPeriodo = this.createDadosPeriodo();
 
       this.setPeriodosStorage(dadosPeriodo);
+
+      this.lancamentoService.updatePeriodo(periodo);
     } catch (error) {
       this.menssagemService.error("Falha ao atualizar período!");
       console.error("Update failed " + error);

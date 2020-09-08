@@ -7,6 +7,7 @@ import { Plugins } from "@capacitor/core";
 import { Platform } from "@ionic/angular";
 import { MenssagemService } from "../menssagem/menssagem.service";
 import { Dados } from "src/app/models/dados";
+import { Periodo } from "src/app/models/periodo";
 
 const { Storage } = Plugins;
 
@@ -114,6 +115,25 @@ export class LancamentoService {
     } catch (error) {
       this.menssagemService.error("Falha ao atualizar cliente em lançamento!");
       console.error("UpdateCliente failed " + error);
+    }
+  }
+
+  async updatePeriodo(periodoEditado: Periodo): Promise<any> {
+    try {
+      await this.getAllLancamentos();
+
+      this.lancamentos.forEach((lancamento) => {
+        if (lancamento.periodo.id == periodoEditado.id) {
+          lancamento.periodo = periodoEditado;
+        }
+      });
+
+      var dadosLancamentos = this.createDadosLancamentos();
+
+      this.setLancamentosStorage(dadosLancamentos);
+    } catch (error) {
+      this.menssagemService.error("Falha ao atualizar periodo em lançamento!");
+      console.error("updatePeriodo failed " + error);
     }
   }
 

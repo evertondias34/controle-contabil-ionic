@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { Platform, NavController } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { MenssagemService } from "./service/menssagem/menssagem.service";
 
 @Component({
   selector: "app-root",
@@ -36,7 +37,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public navController: NavController
+    public navController: NavController,
+    private menssagemService: MenssagemService
   ) {
     this.initializeApp();
   }
@@ -48,6 +50,7 @@ export class AppComponent {
     });
 
     this.navController.navigateRoot("/");
+    // this.menssagemService.sucesso("Bem-vinda Minha Linda Carolina !");
   }
 
   ngOnInit() {

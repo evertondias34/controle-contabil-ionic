@@ -12,6 +12,7 @@ import { MenssagemService } from "src/app/service/menssagem/menssagem.service";
 export class ClienteViewPage implements OnInit {
   filteredClientes: Cliente[] = [];
   _clientes: Cliente[] = [];
+  isFirstView: boolean = true;
 
   constructor(
     public clienteService: ClienteService,
