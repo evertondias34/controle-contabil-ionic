@@ -50,7 +50,7 @@ export class AppComponent {
     });
 
     this.navController.navigateRoot("/");
-    // this.menssagemService.sucesso("Bem-vinda Minha Linda Carolina !");
+    this.menssagemService.sucesso("Bem-vinda Minha Linda Carolina !");
   }
 
   ngOnInit() {
