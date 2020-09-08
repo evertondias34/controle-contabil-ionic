@@ -41,8 +41,6 @@ export class LancamentoService {
     try {
       await this.getAllLancamentos();
 
-      console.log("getAllLancamentos");
-
       return this.getLancamentosBean();
     } catch (error) {
       this.menssagemService.error("Falha ao buscar Lançamentos!");
@@ -56,9 +54,6 @@ export class LancamentoService {
         key: this.LANCAMENTO_STORAGE,
       });
       var dadosLancamentos = JSON.parse(lancamentoJson.value);
-
-      console.log(dadosLancamentos);
-      console.log("getAllLancamentos");
 
       if (dadosLancamentos) {
         const { lastId, values } = dadosLancamentos[0];
@@ -148,8 +143,6 @@ export class LancamentoService {
   }
 
   private getLancamentosBean(): LancamentoBean[] {
-    console.log("getLancamentosBean");
-
     var lancamentosBean: LancamentoBean[] = this.lancamentos.map(
       (lancamento) => {
         var beanLancamento = this.createLancamentoBean(lancamento);

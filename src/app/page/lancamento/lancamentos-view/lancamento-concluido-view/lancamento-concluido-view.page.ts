@@ -88,7 +88,5 @@ export class LancamentoConcluidoViewPage implements OnInit {
 
     this.lancamentoConcluido.despesaTotal = totalDespesa;
     this.lancamentoConcluido.saldoFinal = saldoTotal;
-
-    console.log(this.lancamentoConcluido.saldoFinal);
   }
 }

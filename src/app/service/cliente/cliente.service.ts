@@ -58,8 +58,6 @@ export class ClienteService {
       const clientesJson = await Storage.get({ key: this.CLIENTE_STORAGE });
       var dadosClientes = JSON.parse(clientesJson.value);
 
-      console.log(dadosClientes);
-
       if (dadosClientes) {
         const { lastId, values } = dadosClientes[0];
         this.idCurrent = lastId;

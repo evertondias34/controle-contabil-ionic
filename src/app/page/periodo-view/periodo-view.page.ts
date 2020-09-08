@@ -83,8 +83,6 @@ export class PeriodoViewPage implements OnInit {
 
     modal.onDidDismiss().then((detail: any) => {
       if (detail.data) {
-        console.log(detail.data);
-
         periodo.mesAno = detail.data;
 
         this.submitForm(periodo);

@@ -72,8 +72,6 @@ export class LancamentoFormPage implements OnInit {
   }
 
   createLancamentoFormGroup() {
-    console.log("createLancamentoFormGroup");
-
     this.lancamentoGroup = this.fBuilder.group({
       id: [this.lancamento.id],
       cliente: [
