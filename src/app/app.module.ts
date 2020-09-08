@@ -8,8 +8,8 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { PhoneViewPipe } from "./pipes/phone-view/phone-view.pipe";
-
+import { Screenshot } from "@ionic-native/screenshot/ngx";
+import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -17,6 +17,8 @@ import { PhoneViewPipe } from "./pipes/phone-view/phone-view.pipe";
   providers: [
     StatusBar,
     SplashScreen,
+    Screenshot,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

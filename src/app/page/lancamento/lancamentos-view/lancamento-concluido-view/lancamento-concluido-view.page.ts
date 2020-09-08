@@ -1,8 +1,15 @@
+import { Platform } from "@ionic/angular";
+import { Screenshot } from "@ionic-native/screenshot/ngx";
+import { SocialSharing } from "@ionic-native/social-sharing/ngx";
+
 import { Lancamento } from "./../../../../models/lancamento";
 import { Component, OnInit } from "@angular/core";
 import { LancamentoService } from "src/app/service/lancamento/lancamento.service";
 import { Router } from "@angular/router";
 import { LancamentoConcluido } from "src/app/models/lancamento-concluido";
+import { MenssagemService } from "src/app/service/menssagem/menssagem.service";
+import { App } from "@capacitor/core/dist/esm/web/app";
+import { error } from "protractor";
 
 @Component({
   selector: "app-lancamento-concluido-view",
@@ -14,7 +21,10 @@ export class LancamentoConcluidoViewPage implements OnInit {
 
   constructor(
     private lancamentoService: LancamentoService,
-    private router: Router
+    private router: Router,
+    private screenshot: Screenshot,
+    private menssagemService: MenssagemService,
+    private socialSharing: SocialSharing
   ) {
     // if (this.router.getCurrentNavigation().extras.state) {
     //   this.buscarLancamentoCompleto();
@@ -32,8 +42,53 @@ export class LancamentoConcluidoViewPage implements OnInit {
     this.createLancamentoConcluido(lancamentoCurrent);
   }
 
-  compartilhar() {
+  shareWhatsapp() {
+    this.printarTela();
     //TODO fazer aqui
+
+    // this.socialSharing.shareViaWhatsApp(
+    //   "Compartilhando o conteúdo de um aplicativo com o Social Sharing.",
+    //   res,
+    //   null
+    // );
+  }
+
+  // private void CreateDirectoryForPictures()
+  // {
+  //     App._dir = new File(
+  //         Environment.GetExternalStoragePublicDirectory(
+  //             Environment.DirectoryPictures), "imgen");
+  //     if (!App._dir.Exists())
+  //     {
+  //         App._dir.Mkdirs();
+  //     }
+  // }
+
+  printarTela() {
+    this.screenshot
+      .save("jpg", 80, "extrato")
+      .then((res) => {
+        this.socialSharing
+          .shareViaWhatsApp(
+            "Compartilhando o conteúdo de um aplicativo com o Social Sharing.",
+            res.filePath,
+            null
+          )
+          .then(() => {
+            this.menssagemService.sucesso("compartilhado com sucesso");
+          })
+          .catch((error) => {
+            this.menssagemService.error(
+              "Falha ao printar lançamento! " + error
+            );
+          });
+
+        this.menssagemService.sucesso("no CAPRICHO!");
+      })
+      .catch((error) => {
+        // console.log("falha ao salvar " + error);
+        this.menssagemService.error("Falha ao printar lançamento! " + error);
+      });
   }
 
   createLancamentoConcluido(lancamento: Lancamento) {
