@@ -1,3 +1,4 @@
+import { LancamentoService } from "src/app/service/lancamento/lancamento.service";
 import { Injectable } from "@angular/core";
 import { Cliente } from "../../models/cliente";
 
@@ -17,7 +18,11 @@ export class ClienteService {
   private clientes: Cliente[] = [];
   private platform: Platform;
 
-  constructor(platform: Platform, private menssagemService: MenssagemService) {
+  constructor(
+    platform: Platform,
+    private menssagemService: MenssagemService,
+    private lancamentoService: LancamentoService
+  ) {
     this.platform = platform;
   }
 
@@ -86,6 +91,8 @@ export class ClienteService {
       var dadosClientes = this.createDadosCliente();
 
       this.setClientesStorage(dadosClientes);
+
+      this.lancamentoService.updateCliente(cliente);
     } catch (error) {
       this.menssagemService.error("Falha ao atualizar cliente!");
       console.error("Update failed " + error);

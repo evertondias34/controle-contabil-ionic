@@ -1,3 +1,4 @@
+import { Cliente } from "src/app/models/cliente";
 import { LancamentoBean } from "src/app/models/lancamento-bean";
 import { Lancamento } from "./../../models/lancamento";
 import { Injectable } from "@angular/core";
@@ -38,23 +39,35 @@ export class LancamentoService {
 
   async findAll(): Promise<LancamentoBean[]> {
     try {
+      await this.getAllLancamentos();
+
+      console.log("getAllLancamentos");
+
+      return this.getLancamentosBean();
+    } catch (error) {
+      this.menssagemService.error("Falha ao buscar Lançamentos!");
+      console.error("FindAll failed " + error);
+    }
+  }
+
+  async getAllLancamentos() {
+    try {
       const lancamentoJson = await Storage.get({
         key: this.LANCAMENTO_STORAGE,
       });
       var dadosLancamentos = JSON.parse(lancamentoJson.value);
 
       console.log(dadosLancamentos);
+      console.log("getAllLancamentos");
 
       if (dadosLancamentos) {
         const { lastId, values } = dadosLancamentos[0];
         this.idCurrent = lastId;
         this.lancamentos = values;
       }
-
-      return this.getLancamentosBean();
     } catch (error) {
-      this.menssagemService.error("Falha ao buscar Lançamentos!");
-      console.error("FindAll failed " + error);
+      this.menssagemService.error("Falha ao buscar todos Lançamentos!");
+      console.error("GetAllLancamentos failed " + error);
     }
   }
 
@@ -90,6 +103,25 @@ export class LancamentoService {
     }
   }
 
+  async updateCliente(clienteEditado: Cliente): Promise<any> {
+    try {
+      await this.getAllLancamentos();
+
+      this.lancamentos.forEach((lancamento) => {
+        if (lancamento.cliente.id == clienteEditado.id) {
+          lancamento.cliente = clienteEditado;
+        }
+      });
+
+      var dadosLancamentos = this.createDadosLancamentos();
+
+      this.setLancamentosStorage(dadosLancamentos);
+    } catch (error) {
+      this.menssagemService.error("Falha ao atualizar cliente em lançamento!");
+      console.error("UpdateCliente failed " + error);
+    }
+  }
+
   private addNovo(novoLancamento: Lancamento) {
     novoLancamento.id = ++this.idCurrent;
     this.lancamentos.push(novoLancamento);
@@ -116,6 +148,8 @@ export class LancamentoService {
   }
 
   private getLancamentosBean(): LancamentoBean[] {
+    console.log("getLancamentosBean");
+
     var lancamentosBean: LancamentoBean[] = this.lancamentos.map(
       (lancamento) => {
         var beanLancamento = this.createLancamentoBean(lancamento);
