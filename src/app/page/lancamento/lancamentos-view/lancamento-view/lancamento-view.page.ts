@@ -41,7 +41,7 @@ export class LancamentoViewPage implements OnInit {
 
   concluir(idLancamento: number) {
     let mensagem =
-      "Deseja concluir esse lancamento? (Após concluído este não poderá mais ser editado";
+      "Deseja concluir esse lancamento? (Após concluído este não poderá mais ser editado)";
     this.menssagemService.confirmar(mensagem, async () => {
       let navigationExtras: NavigationExtras = {
         state: {
@@ -56,9 +56,9 @@ export class LancamentoViewPage implements OnInit {
     let mensagem =
       "Deseja excluir o lancamento: '" +
       lancamentoBean.nomeCliente +
-      " -" +
+      "/" +
       lancamentoBean.periodo +
-      "'  ?";
+      "' ?";
     this.menssagemService.confirmar(mensagem, async () => {
       await this.lancamentoService.deleteById(lancamentoBean.idLancamento);
       this.buscarLancamentos();
