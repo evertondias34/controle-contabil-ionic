@@ -11,6 +11,7 @@ import { LancamentoBean } from "src/app/models/lancamento-bean";
 })
 export class LancamentoViewPage implements OnInit {
   filteredLancamentosBean: LancamentoBean[] = [];
+  lancamentosPendentes: LancamentoBean[] = [];
   _lancamentosBean: LancamentoBean[] = [];
   isShowPendentes: boolean = false;
 
@@ -40,8 +41,7 @@ export class LancamentoViewPage implements OnInit {
   }
 
   concluir(idLancamento: number) {
-    let mensagem =
-      "Deseja concluir esse lancamento? (Após concluído este não poderá mais ser editado)";
+    let mensagem = "Deseja concluir esse lancamento?";
     this.menssagemService.confirmar(mensagem, async () => {
       let navigationExtras: NavigationExtras = {
         state: {
@@ -80,6 +80,10 @@ export class LancamentoViewPage implements OnInit {
 
     if (filter == "") {
       this.filteredLancamentosBean = this._lancamentosBean;
+
+      if (this.isShowPendentes) {
+        this.filteredLancamentosBean = this.lancamentosPendentes;
+      }
     } else {
       this.filtrar(filter);
     }
@@ -87,6 +91,10 @@ export class LancamentoViewPage implements OnInit {
 
   filtrar(filter: string) {
     this.filteredLancamentosBean = this._lancamentosBean;
+
+    if (this.isShowPendentes) {
+      this.filteredLancamentosBean = this.lancamentosPendentes;
+    }
 
     filter = filter.toLowerCase();
     this.filteredLancamentosBean = this.filteredLancamentosBean.filter(
@@ -100,9 +108,11 @@ export class LancamentoViewPage implements OnInit {
   }
 
   getLancamentosPendentes() {
-    this.filteredLancamentosBean = this._lancamentosBean.filter(
+    this.lancamentosPendentes = this._lancamentosBean.filter(
       (lancamento) => !lancamento.isConcluido
     );
+
+    this.filteredLancamentosBean = this.lancamentosPendentes;
   }
 
   showLancamentosPendentes(isPendentes: boolean) {
