@@ -29,7 +29,7 @@
     >
     </ion-checkbox>
 
-    <ion-label>Exibir apenas faturamentos pendentes</ion-label>
+    <ion-label>Exibir lançamentos pendentes</ion-label>
   </ion-item>
 
   <ion-grid>
@@ -37,9 +37,9 @@
       class="linha-zebrada"
       *ngFor="let lancamentoBean of filteredLancamentosBean"
     >
-      <ion-col size="7" size-sm="3">{{lancamentoBean.nomeCliente}} </ion-col>
-      <ion-col size="5" size-sm="3"> {{lancamentoBean.periodo}} </ion-col>
-      <ion-col size-sm="2" size="12">
+      <ion-col size-sm="12" size="12">{{lancamentoBean.nomeCliente}} </ion-col>
+      <ion-col size-sm="12" size="12"> {{lancamentoBean.periodo}} </ion-col>
+      <ion-col size-sm="12" size="12">
         <ion-button
           *ngIf="lancamentoBean.isConcluido"
           color="light"

@@ -171,6 +171,8 @@ export class LancamentoService {
       }
     );
 
+    lancamentosBean.sort((a, b) => a.nomeCliente.localeCompare(b.nomeCliente));
+
     return lancamentosBean;
   }
 

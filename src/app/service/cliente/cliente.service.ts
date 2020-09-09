@@ -116,6 +116,8 @@ export class ClienteService {
       (cliente) => cliente.isAtivo
     );
 
+    clientesAtivos.sort((a, b) => a.nome.localeCompare(b.nome));
+
     return clientesAtivos;
   }
 
