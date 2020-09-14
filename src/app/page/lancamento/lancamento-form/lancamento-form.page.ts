@@ -93,6 +93,7 @@ export class LancamentoFormPage implements OnInit {
       valorCont: [this.lancamento.valorCont],
       isPagoCont: [this.lancamento.isPagoCont],
       valorRecebido: [this.lancamento.valorRecebido],
+      isExtrato: [this.lancamento.isExtrato],
     });
   }
 
@@ -146,7 +147,8 @@ export class LancamentoFormPage implements OnInit {
       hasIrPago &&
       hasProlPago &&
       hasContPago &&
-      hasRecebido;
+      hasRecebido &&
+      lancamento.isExtrato;
 
     lancamento.isLancamentoConcluido = isConcluidoLancamento;
   }

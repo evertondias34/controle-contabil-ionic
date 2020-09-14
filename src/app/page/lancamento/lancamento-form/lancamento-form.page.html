@@ -185,5 +185,24 @@
         </ion-row>
       </ion-grid>
     </div>
+
+    <ion-row class="borda">
+      <ion-col size="5" size-sm="3">
+        <ion-item lines="none">
+          <ion-label> EXTRATO</ion-label>
+          <!-- <ion-input type="number" formControlName="valorCont"> </ion-input> -->
+        </ion-item>
+      </ion-col>
+      <ion-col size="7" size-sm="3">
+        <ion-item lines="none">
+          <ion-checkbox
+            class="marginCheck"
+            slot="start"
+            formControlName="isExtrato"
+          ></ion-checkbox>
+          <ion-label>Enviado </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
   </form>
 </ion-content>

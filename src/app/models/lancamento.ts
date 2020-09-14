@@ -18,4 +18,5 @@ export class Lancamento {
   valorRecebido: number;
   isRecebido: boolean;
   isLancamentoConcluido: boolean;
+  isExtrato: boolean;
 }
