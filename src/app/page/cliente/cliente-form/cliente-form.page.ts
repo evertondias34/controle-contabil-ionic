@@ -47,12 +47,11 @@ export class ClienteFormPage implements OnInit {
         this.cliente.telefone,
         Validators.compose([
           Validators.required,
-          // Validators.pattern(/^(?:\()[0-9]{2}(?:\))\s?[0-9]{5}(?:-)[0-9]{4}$/g),
-          // Validators.pattern(/^[0-9]{2}\s?[0-9]{5}\s[0-9]{4}$/g),
           Validators.pattern(/^[0-9]{12}$/g),
-          Validators.maxLength(15),
+          Validators.maxLength(12),
         ]),
       ],
+      observacao: [this.cliente.observacao],
     });
 
     this.clienteGroup.markAllAsTouched();

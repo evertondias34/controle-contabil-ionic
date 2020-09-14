@@ -68,7 +68,13 @@ export class ClienteViewPage implements OnInit {
 
     filter = filter.toLowerCase();
     this.filteredClientes = this.filteredClientes.filter((cliente) => {
-      return cliente.nome.toLowerCase().includes(filter);
+      if (!cliente.observacao) {
+        cliente.observacao = "";
+      }
+      return (
+        cliente.nome.toLowerCase().includes(filter) ||
+        cliente.observacao.toLowerCase().includes(filter)
+      );
     });
   }
 }

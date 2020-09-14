@@ -14,7 +14,7 @@
 
 <ion-content class="ion-padding">
   <ion-searchbar
-    placeholder="Filtrar por nome"
+    placeholder="Filtrar: nome ou observação"
     (ionChange)="filtroEvent($event)"
   >
   </ion-searchbar>
@@ -27,6 +27,7 @@
           >{{(cliente.telefone) | phoneView}}</a
         >
       </ion-col>
+      <ion-col size-sm="12" size="12"> {{cliente.observacao}} </ion-col>
       <ion-col size-sm="5" size="12">
         <ion-button color="light" (click)="editar(cliente)">
           <ion-icon name="pencil"></ion-icon>
