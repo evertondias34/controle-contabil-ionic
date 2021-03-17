@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { LancamentoFormPage } from './lancamento-form.page';
@@ -7,7 +7,7 @@ describe('LancamentoFormPage', () => {
   let component: LancamentoFormPage;
   let fixture: ComponentFixture<LancamentoFormPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LancamentoFormPage ],
       imports: [IonicModule.forRoot()]

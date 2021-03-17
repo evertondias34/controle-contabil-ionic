@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { PeriodoFormModalComponent } from './periodo-form-modal.component';
@@ -7,7 +7,7 @@ describe('PeriodoFormModalComponent', () => {
   let component: PeriodoFormModalComponent;
   let fixture: ComponentFixture<PeriodoFormModalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PeriodoFormModalComponent ],
       imports: [IonicModule.forRoot()]
