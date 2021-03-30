@@ -59,12 +59,12 @@ export class SelectModalComponent {
     this.modalController.dismiss();
   }
 
-  salvar(itemSelected) {
-    if (this.isSelectMultiples) {
-      this.modalController.dismiss(this.itensSelected);
-    } else {
-      this.modalController.dismiss(itemSelected);
-    }
+  salvarItem(itemSelected) {
+    this.modalController.dismiss(itemSelected);
+  }
+
+  salvarItens() {
+    this.modalController.dismiss(this.itensSelected);
   }
 
   selectItem(item: Item) {
@@ -76,7 +76,7 @@ export class SelectModalComponent {
         this.itensSelected.push(item);
       }
     } else {
-      this.salvar(item);
+      this.salvarItem(item);
     }
   }
 
